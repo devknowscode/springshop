@@ -7,7 +7,6 @@ import { useAuth } from "@/helpers/auth/AuthContext";
 const TopBarDark = ({ topClass, fluid }) => {
   const router = useRouter();
   const { sessionToken } = useAuth();
-  console.log("sessionToken::", sessionToken);
 
   const Logout = () => {
     
@@ -38,7 +37,7 @@ const TopBarDark = ({ topClass, fluid }) => {
               <li className="onhover-dropdown mobile-account">
                 <i className="fa fa-user" aria-hidden="true"></i> My Account
                 <ul className="onhover-show-div">
-                  {sessionToken ? (
+                  {sessionToken.length === 0 ? (
                     <>
                       <li>
                         <Link href={`/account/login`}>Login</Link>
