@@ -64,6 +64,12 @@ public class User extends BaseEntity implements UserDetails {
         );
     }
 
+    // In this user model, cannot get username value
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
     @Override
     public boolean isAccountNonExpired() {
         return true;
