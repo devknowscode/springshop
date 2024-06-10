@@ -26,6 +26,8 @@ public class Product extends BaseEntity {
     @Column(nullable = false)
     private String description;
 
+    private Double price;
+
     private Double ratingAverage = 4.5;
 
     @Column(nullable = false)

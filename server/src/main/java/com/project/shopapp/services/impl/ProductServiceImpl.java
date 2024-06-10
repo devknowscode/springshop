@@ -5,6 +5,7 @@ import com.project.shopapp.exceptions.custom.DataNotFoundException;
 import com.project.shopapp.models.*;
 import com.project.shopapp.repositories.*;
 import com.project.shopapp.responses.ProductResponse;
+import com.project.shopapp.responses.ProductVariantResponse;
 import com.project.shopapp.services.ProductService;
 import com.project.shopapp.utils.ImageUtils;
 import jakarta.transaction.Transactional;
@@ -29,6 +30,7 @@ public class ProductServiceImpl implements ProductService {
     private final ProductImageRepository productImageRepository;
     private final ModelMapper modelMapper;
     private final ProductVariantRepository productVariantRepository;
+    private final ProductDetailRepository productDetailRepository;
 
     @Override
     public Page<ProductResponse> getAllProducts(
@@ -75,6 +77,7 @@ public class ProductServiceImpl implements ProductService {
         Product product = new Product();
         product.setName(cleanedName);
         product.setDescription(trimmedDescription);
+        product.setPrice(productDto.getPrice());
         product.setSlug(slug);
         product.setCategory(existingCategory);
 
@@ -100,7 +103,7 @@ public class ProductServiceImpl implements ProductService {
         productVariant.setPrice(productDto.getPrice());
         productVariant.setStock(Integer.parseInt(variantAttributes.get("stock")));
         productVariant.setStatus(productVariant.getStock() > 0);
-        productVariant.setProduct(product);
+        productVariant.setProduct(newProduct);
         productVariant.setProductImage(productImage);
         productVariantRepository.save(productVariant);
 
@@ -131,16 +134,24 @@ public class ProductServiceImpl implements ProductService {
             ProductDetail productDetail = new ProductDetail();
             productDetail.setProductVariant(productVariant);
             productDetail.setVariantValue(existingVariantValue);
+            productDetailRepository.save(productDetail);
         }
 
-        return modelMapper.map(newProduct, ProductResponse.class);
-    }
+        // Response data
+        ProductResponse response = new ProductResponse();
+        response.setName(newProduct.getName());
+        response.setDescription(newProduct.getDescription());
+        response.setPrice(newProduct.getPrice());
+        response.setSlug(newProduct.getSlug());
+        response.setVariant(ProductVariantResponse.builder()
+                .productVariantName(productVariantName)
+                .sku(productVariant.getSku())
+                .stock(productVariant.getStock())
+                .status(productVariant.isStatus())
+                .build());
+        response.setCategoryId(existingCategory.getId());
 
-    private String generateProductVariantName(Map<String, String> variantAttributes) {
-        return variantAttributes.entrySet().stream()
-                .filter(entry -> !"sku".equalsIgnoreCase(entry.getKey()) && !"stock".equalsIgnoreCase(entry.getKey()))
-                .map(Map.Entry::getValue)
-                .collect(Collectors.joining("-"));
+        return response;
     }
 
     // TODO: Update product service
@@ -153,5 +164,12 @@ public class ProductServiceImpl implements ProductService {
         return name
                 .replace(" ", "-")
                 .toLowerCase();
+    }
+
+    private String generateProductVariantName(Map<String, String> variantAttributes) {
+        return variantAttributes.entrySet().stream()
+                .filter(entry -> !"sku".equalsIgnoreCase(entry.getKey()) && !"stock".equalsIgnoreCase(entry.getKey()))
+                .map(Map.Entry::getValue)
+                .collect(Collectors.joining("-"));
     }
 }

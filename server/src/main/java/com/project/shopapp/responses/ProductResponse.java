@@ -1,6 +1,8 @@
 package com.project.shopapp.responses;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.project.shopapp.dtos.CategoryDto;
+import com.project.shopapp.models.Category;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,10 +14,12 @@ public class ProductResponse {
 
     private String description;
 
-    private String thumbnail;
-
     private Double price;
 
-    @JsonProperty("category_id")
+    private String slug;
+
+    private ProductVariantResponse variant;
+
+    @JsonProperty(value = "category_id")
     private Long categoryId;
 }
