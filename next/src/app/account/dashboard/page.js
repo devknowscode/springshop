@@ -1,3 +1,4 @@
+
 import CommonLayout from '../../../components/shop/common-layout';
 import DashboardSidebar from "./sidebar"
 import { Container, Row ,Col} from 'reactstrap';
@@ -21,12 +22,12 @@ const Dashboard = () => {
                                     <div className="page-title">
                                         <h2>My Dashboard</h2>
                                     </div>
-                                    <div className="welcome-msg">
+                                    {/* <div className="welcome-msg">
                                         <p>Hello, MARK JECNO!</p>
                                         <p>From your My Account Dashboard you have the ability to view a snapshot of your recent
                                         account activity and update your account information. Select a link below to view or
                                     edit information.</p>
-                                    </div>
+                                    </div>  */}
                                     <div className="box-account box-info">
                                         <div className="box-head">
                                             <h2>Account Information</h2>

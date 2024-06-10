@@ -2,6 +2,8 @@
 
 import React, { useState } from "react";
 import { Col } from "reactstrap";
+import { useRouter } from "next/router";
+import { useAuth } from "@/helpers/auth/AuthContext";
 
 const DashboardSidebar = () => {
   const [accountInfo, setAccountInfo] = useState(false);
