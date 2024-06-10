@@ -3,6 +3,8 @@ package com.project.shopapp.responses;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.project.shopapp.dtos.CategoryDto;
 import com.project.shopapp.models.Category;
+import com.project.shopapp.models.ProductImage;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,8 +20,6 @@ public class ProductResponse {
 
     private Double price;
 
-    private String slug;
-
     @JsonProperty(value = "new")
     private boolean isNew;
 
@@ -28,6 +28,8 @@ public class ProductResponse {
     private Integer discount;
 
     private List<ProductVariantResponse> variants;
+
+    private List<ProductImageResponse> images;
 
     @JsonProperty(value = "category_id")
     private Long categoryId;

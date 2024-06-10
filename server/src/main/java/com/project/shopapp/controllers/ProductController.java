@@ -42,7 +42,7 @@ public class ProductController {
             @RequestParam(defaultValue = "") String keyword,
             @RequestParam(defaultValue = "0", name = "category_id") Long categoryId,
             @RequestParam(name = "page", defaultValue = "0") int page,
-            @RequestParam(name = "limit", defaultValue = "5") int limit
+            @RequestParam(name = "limit", defaultValue = "8") int limit
     ) {
         // create pageable from page and limit
         PageRequest pageRequest = PageRequest.of(

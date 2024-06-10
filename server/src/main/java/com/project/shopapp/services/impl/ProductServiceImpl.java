@@ -4,6 +4,7 @@ import com.project.shopapp.dtos.ProductDto;
 import com.project.shopapp.exceptions.custom.DataNotFoundException;
 import com.project.shopapp.models.*;
 import com.project.shopapp.repositories.*;
+import com.project.shopapp.responses.ProductImageResponse;
 import com.project.shopapp.responses.ProductResponse;
 import com.project.shopapp.responses.ProductVariantResponse;
 import com.project.shopapp.services.ProductService;
@@ -42,7 +43,38 @@ public class ProductServiceImpl implements ProductService {
             PageRequest pageRequest
     ) {
         Page<Product> productsPage = repository.searchProducts(categoryId, keyword, pageRequest);
-        return productsPage.map(product -> modelMapper.map(product, ProductResponse.class));
+
+        return productsPage.map(product -> {
+            ProductResponse productResponse = new ProductResponse();
+            productResponse.setTitle(product.getName());
+            productResponse.setDescription(product.getDescription());
+            productResponse.setPrice(product.getProductVariants().get(0).getPrice());
+            productResponse.setNew(product.isNew());
+            productResponse.setSale(product.isSale());
+            productResponse.setDiscount(product.getDiscount());
+            productResponse.setVariants(product.getProductVariants()
+                    .stream()
+                    .map(variant ->
+                            ProductVariantResponse.builder()
+                                    .productVariantName(variant.getProductVariantName())
+                                    .sku(variant.getSku())
+                                    .price(variant.getPrice())
+                                    .stock(variant.getStock())
+                                    .status(variant.isStatus())
+                                    .build())
+                    .collect(Collectors.toList()));
+            productResponse.setCategoryId(product.getCategory().getId());
+            productResponse.setImages(product.getProductImages()
+                    .stream()
+                    .map(image ->
+                            ProductImageResponse.builder()
+                                    .src(image.getSrc())
+                                    .alt(image.getAlt())
+                                    .build())
+                    .collect(Collectors.toList()));
+
+            return productResponse;
+        });
     }
 
     @Override
@@ -103,13 +135,14 @@ public class ProductServiceImpl implements ProductService {
             imageNames.add(imageName);
         }
 
-       for (String imageName : imageNames) {
-           ProductImage productImage = ProductImage.builder()
-                   .src(imageName)
-                   .alt(imageName)
-                   .build();
-           productImageRepository.save(productImage);
-       }
+        for (String imageName : imageNames) {
+            ProductImage productImage = ProductImage.builder()
+                    .src(imageName)
+                    .alt(imageName)
+                    .product(newProduct)
+                    .build();
+            productImageRepository.save(productImage);
+        }
 
         // Response data
         ProductResponse response = new ProductResponse();
@@ -172,7 +205,6 @@ public class ProductServiceImpl implements ProductService {
         response.setTitle(newProduct.getName());
         response.setDescription(newProduct.getDescription());
         response.setPrice(Double.parseDouble(productDto.getProductVariants().get(0).get("price")));
-        response.setSlug(newProduct.getSlug());
         response.setNew(newProduct.isNew());
         response.setSale(newProduct.isSale());
         response.setDiscount(newProduct.getDiscount());
