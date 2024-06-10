@@ -6,11 +6,13 @@ import com.project.shopapp.models.Category;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 public class ProductResponse {
 
-    private String name;
+    private String title;
 
     private String description;
 
@@ -18,7 +20,14 @@ public class ProductResponse {
 
     private String slug;
 
-    private ProductVariantResponse variant;
+    @JsonProperty(value = "new")
+    private boolean isNew;
+
+    private boolean sale;
+
+    private Integer discount;
+
+    private List<ProductVariantResponse> variants;
 
     @JsonProperty(value = "category_id")
     private Long categoryId;

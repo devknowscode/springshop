@@ -14,6 +14,8 @@ import java.util.List;
 @NoArgsConstructor
 public class ProductImage {
 
+    public static final int MAXIMUM_IMAGES_PER_PRODUCT = 8;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,6 +24,7 @@ public class ProductImage {
 
     private String alt;
 
-    @OneToOne(mappedBy = "productImage")
-    private ProductVariant productVariant;
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
 }

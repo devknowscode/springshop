@@ -26,8 +26,6 @@ public class Product extends BaseEntity {
     @Column(nullable = false)
     private String description;
 
-    private Double price;
-
     private Double ratingAverage = 4.5;
 
     @Column(nullable = false)
@@ -40,9 +38,20 @@ public class Product extends BaseEntity {
     @Column(nullable = false)
     private Boolean isDeleted = false;
 
+    @Column(name = "new")
+    private boolean isNew = true;
+
+    @Column(name = "sale")
+    private boolean isSale = false;
+
+    private Integer discount = 0;
+
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
+
+    @OneToMany(mappedBy = "product")
+    private List<ProductImage> productImages;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<ProductVariant> productVariants;

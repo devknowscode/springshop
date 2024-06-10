@@ -78,7 +78,7 @@ public class ProductController {
     @ResponseStatus(HttpStatus.CREATED)
     public BaseResponse<ProductResponse> createProduct(
             @RequestPart String productDtoObj,
-            @RequestPart MultipartFile file,
+            @RequestPart List<MultipartFile> files,
             BindingResult bindingResult
     ) throws Exception {
         BindingResultError.handle(bindingResult);
@@ -89,7 +89,7 @@ public class ProductController {
         var response = new BaseResponse<ProductResponse>();
         response.setStatus(HttpStatus.CREATED.value());
         response.setMessage("Product created successfully!");
-        response.setMetadata(service.createProduct(productDto, file));
+        response.setMetadata(service.createProduct(productDto, files));
         return response;
     }
 

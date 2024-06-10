@@ -28,8 +28,8 @@ public class ProductDto {
     @Digits(integer = 4, fraction = 2)
     private Double price;
 
-    @JsonProperty("product_variant")
-    private Map<String, String> productVariant;
+    @JsonProperty("product_variants")
+    private List<Map<String, String>> productVariants;
 
     @JsonProperty("category_id")
     @NotNull(message = "Category ID is required")

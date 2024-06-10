@@ -39,10 +39,6 @@ public class ProductVariant {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    @OneToOne
-    @JoinColumn(name = "product_image_id")
-    private ProductImage productImage;
-
     @OneToMany(mappedBy = "productVariant", cascade = CascadeType.ALL)
     private List<ProductDetail> productDetails;
 }

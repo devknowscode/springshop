@@ -13,6 +13,7 @@ public class ProductVariantResponse {
     private String productVariantName;
 
     private String sku;
+    private Double price;
     private int stock;
     private boolean status;
 
