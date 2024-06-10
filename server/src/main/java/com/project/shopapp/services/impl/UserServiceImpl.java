@@ -2,11 +2,14 @@ package com.project.shopapp.services.impl;
 
 import com.project.shopapp.auth.JwtService;
 import com.project.shopapp.dtos.UserDto;
+import com.project.shopapp.enums.TokenType;
 import com.project.shopapp.exceptions.custom.DataAlreadyExistsException;
 import com.project.shopapp.exceptions.custom.DataNotFoundException;
 import com.project.shopapp.models.Role;
+import com.project.shopapp.models.Token;
 import com.project.shopapp.models.User;
 import com.project.shopapp.repositories.RoleRepository;
+import com.project.shopapp.repositories.TokenRepository;
 import com.project.shopapp.repositories.UserRepository;
 import com.project.shopapp.responses.AuthenticationResponse;
 import com.project.shopapp.responses.UserResponse;
@@ -27,6 +30,7 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository repository;
+    private final TokenRepository tokenRepository;
     private final PasswordEncoder passwordEncoder;
     private final ModelMapper modelMapper;
     private final JwtService jwtService;
@@ -63,16 +67,18 @@ public class UserServiceImpl implements UserService {
         User newUser = repository.save(user);
 
         // Generate token
-        var token = jwtService.generateToken(newUser);
+        var jwtToken = jwtService.generateToken(newUser);
 
-        // TODO: Save token to db
-        // Target: Save list token user used
+        // Save token to db
+        var token = saveUserToken(newUser, jwtToken);
+
+        // TODO: Save list token user used
         //         if user use old token which used before, we'll delete valid token and take user login again
 
         // Return auth response
         var response = new AuthenticationResponse();
         response.setUser(modelMapper.map(newUser, UserResponse.class));
-        response.setToken(token);
+        response.setToken(token.getToken());
         return response;
     }
 
@@ -98,7 +104,11 @@ public class UserServiceImpl implements UserService {
         }
 
         // Generate token
-        var token = jwtService.generateToken(existingUser);
+        var jwtToken = jwtService.generateToken(existingUser);
+
+        // Save user token
+        revokeAllUserTokens(existingUser);
+        var token = saveUserToken(existingUser, jwtToken);
 
         // Authenticate user
         UsernamePasswordAuthenticationToken authenticationToken =
@@ -114,7 +124,35 @@ public class UserServiceImpl implements UserService {
         // Return auth response
         var response = new AuthenticationResponse();
         response.setUser(modelMapper.map(existingUser, UserResponse.class));
-        response.setToken(token);
+        response.setToken(token.getToken());
         return response;
+    }
+
+//    public void logout(String token) {
+//
+//    }
+
+    private Token saveUserToken(User user, String jwtToken) {
+        var token = Token.builder()
+                .user(user)
+                .token(jwtToken)
+                .tokenType(TokenType.BEARER)
+                .expired(false)
+                .revoked(false)
+                .build();
+        tokenRepository.save(token);
+        return token;
+    }
+
+    private void revokeAllUserTokens(User user) {
+        var validUserTokens = tokenRepository.findAllValidTokensByUser(user.getId());
+        if (validUserTokens.isEmpty()) {
+            return;
+        }
+        validUserTokens.forEach(t -> {
+            t.setExpired(true);
+            t.setRevoked(true);
+        });
+        tokenRepository.saveAll(validUserTokens);
     }
 }
