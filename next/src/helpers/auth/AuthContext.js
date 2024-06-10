@@ -4,7 +4,8 @@ import { createContext, useContext, useState } from "react";
 
 const AuthContext = createContext({
   sessionToken: "",
-  setSessionToken: (session) => {}
+  setSessionToken: (session) => {},
+  clearSessionToken: () => {}
 });
 
 export const useAuth = () => {
@@ -16,9 +17,24 @@ export const useAuth = () => {
 };
 
 export default function AuthProvider({ children, initialSessionToken = '' }) {
-  const [sessionToken, setSessionToken] = useState(initialSessionToken);
+  const [sessionToken, setSessionTokenState] = useState(initialSessionToken);
+
+  const setSessionToken = (session) => {
+    setSessionTokenState(session);
+    if (session) {
+      localStorage.setItem('userToken', session);
+    } else {
+      localStorage.removeItem('userToken');
+    }
+  };
+
+  const clearSessionToken = () => {
+    setSessionTokenState('');
+    localStorage.removeItem('userToken');
+  };
+
   return (
-    <AuthContext.Provider value={{ sessionToken, setSessionToken }}>
+    <AuthContext.Provider value={{ sessionToken, setSessionToken, clearSessionToken }}>
       {children}
     </AuthContext.Provider>
   );

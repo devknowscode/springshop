@@ -7,8 +7,8 @@ spring:
       max-request-size: 10MB
   datasource:
     url: jdbc:mysql://localhost:3306/springshop
-    username: springshop_su
-    password: springshop_su
+    username: root
+    password: 17102002
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     show-sql: true
