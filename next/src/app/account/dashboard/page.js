@@ -1,14 +1,29 @@
-
+"use client";
+import React, { useState } from 'react';
 import CommonLayout from '../../../components/shop/common-layout';
-import DashboardSidebar from "./sidebar"
-import { Container, Row ,Col} from 'reactstrap';
-import { cookies } from 'next/headers';
-
+import DashboardSidebar from "./sidebar";
+import { Container, Row, Col, Button } from 'reactstrap';
+import './dashboard.css';
 
 const Dashboard = () => {
-    const cookieStore = cookies()
-    const sessionToken = cookieStore.get("sessionToken");
-    console.log(sessionToken)
+    const initialData = {
+        username: "TrungLQ",
+        email: "20522070@gm.uit.edu.vn",
+        fullname: "Le Quang Trung",
+        address: "dai hoc UIT",
+        phone: "012983812310",
+    };
+
+    const [data, setData] = useState(initialData);
+    const [editData, setEditData] = useState(initialData);
+
+    const handleChange = (e, key) => {
+        setEditData({ ...editData, [key]: e.target.value });
+    };
+
+    const handleSave = () => {
+        setData(editData);
+    };
 
     return (
         <CommonLayout parent="home" title="dashboard">
@@ -19,62 +34,44 @@ const Dashboard = () => {
                         <Col lg="9">
                             <div className="dashboard-right">
                                 <div className="dashboard">
-                                    <div className="page-title">
-                                        <h2>My Dashboard</h2>
-                                    </div>
-                                    {/* <div className="welcome-msg">
-                                        <p>Hello, MARK JECNO!</p>
-                                        <p>From your My Account Dashboard you have the ability to view a snapshot of your recent
-                                        account activity and update your account information. Select a link below to view or
-                                    edit information.</p>
-                                    </div>  */}
                                     <div className="box-account box-info">
                                         <div className="box-head">
-                                            <h2>Account Information</h2>
+                                            <h2>Thông tin tài khoản</h2>
                                         </div>
+                                        <br />
                                         <Row>
-                                            <Col sm="6">
+                                            <Col sm="12">
                                                 <div className="box">
-                                                    <div className="box-title">
-                                                        <h3>Contact Information</h3><a href="#">Edit</a>
-                                                    </div>
                                                     <div className="box-content">
-                                                        <h6>MARK JECNO</h6>
-                                                        <h6>MARk-JECNO@gmail.com</h6>
-                                                        <h6><a href="#">Change Password</a></h6>
-                                                    </div>
-                                                </div>
-                                            </Col>
-                                            <Col sm="6">
-                                                <div className="box">
-                                                    <div className="box-title">
-                                                        <h3>Newsletters</h3><a href="#">Edit</a>
-                                                    </div>
-                                                    <div className="box-content">
-                                                        <p>You are currently not subscribed to any newsletter.</p>
+                                                        <table className="table-container">
+                                                            <tbody>
+                                                                {Object.entries(data).map(([key, value]) => (
+                                                                    <tr key={key}>
+                                                                        <td>{key}</td>
+                                                                        <td>
+                                                                            <input
+                                                                                type="text"
+                                                                                className="input-field"
+                                                                                value={editData[key]}
+                                                                                onChange={(e) => handleChange(e, key)}
+                                                                            />
+                                                                        </td>
+                                                                    </tr>
+                                                                ))}
+                                                            </tbody>
+                                                        </table>
+                                                        <div className="save-button-container">
+                                                            <Button
+                                                                className="save-button"
+                                                                onClick={handleSave}
+                                                            >
+                                                                Save
+                                                            </Button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </Col>
                                         </Row>
-                                        <div>
-                                            <div className="box">
-                                                <div className="box-title">
-                                                    <h3>Address Book</h3><a href="#">Manage Addresses</a>
-                                                </div>
-                                                <Row>
-                                                    <Col sm="6">
-                                                        <h6>Default Billing Address</h6>
-                                                        <address>You have not set a default billing address.<br /><a href="#">Edit
-                                                        Address</a></address>
-                                                    </Col>
-                                                    <Col sm="6">
-                                                        <h6>Default Shipping Address</h6>
-                                                        <address>You have not set a default shipping address.<br /><a
-                                                            href="#">Edit Address</a></address>
-                                                    </Col>
-                                                </Row>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -83,7 +80,7 @@ const Dashboard = () => {
                 </Container>
             </section>
         </CommonLayout>
-    )
-}
+    );
+};
 
-export default Dashboard
+export default Dashboard;

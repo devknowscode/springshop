@@ -52,9 +52,8 @@ const MasterFooter = ({
             <Row className="footer-theme partition-f">
               <Col lg="4" md="6">
                 <div
-                  className={`footer-title ${
-                    isOpen && collapse == 1 ? "active" : ""
-                  } footer-mobile-title`}>
+                  className={`footer-title ${isOpen && collapse == 1 ? "active" : ""
+                    } footer-mobile-title`}>
                   <h4
                     onClick={() => {
                       setCollapse(1);
@@ -71,9 +70,7 @@ const MasterFooter = ({
                       <LogoImage logo={logoName} />
                     </div>
                     <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua. Ut enim ad minim veniam,
+                      UIT - shop là website bán hàng tạo ra để sinh viên qua môn java
                     </p>
                     <div className="footer-social">
                       <ul>
@@ -116,9 +113,8 @@ const MasterFooter = ({
               <Col className="offset-xl-1">
                 <div className="sub-title">
                   <div
-                    className={`footer-title ${
-                      isOpen && collapse == 2 ? "active" : ""
-                    } `}>
+                    className={`footer-title ${isOpen && collapse == 2 ? "active" : ""
+                      } `}>
                     <h4
                       onClick={() => {
                         if (width) {
@@ -126,7 +122,7 @@ const MasterFooter = ({
                           setCollapse(2);
                         } else setIsOpen(true);
                       }}>
-                      my account
+                      UIT-CLUB
                       <span className="according-menu"></span>
                     </h4>
                   </div>
@@ -137,28 +133,14 @@ const MasterFooter = ({
                         <li>
                           <Link href={`/shop/left_sidebar`}>
                             {/* <a> */}
-                            womens
+                            Đăng ký thành viên
                             {/* </a> */}
                           </Link>
                         </li>
                         <li>
                           <Link href={`/shop/left_sidebar`}>
                             {/* <a>  */}
-                            clothing
-                            {/* </a> */}
-                          </Link>
-                        </li>
-                        <li>
-                          <Link href={`/shop/left_sidebar`}>
-                            {/* <a> */}
-                            accessories
-                            {/* </a> */}
-                          </Link>
-                        </li>
-                        <li>
-                          <Link href={`/shop/left_sidebar`}>
-                            {/* <a> */}
-                            featured
+                            Ưu đãi & đặc quyền
                             {/* </a> */}
                           </Link>
                         </li>
@@ -170,9 +152,8 @@ const MasterFooter = ({
               <Col>
                 <div className="sub-title">
                   <div
-                    className={`footer-title ${
-                      isOpen && collapse == 3 ? "active" : ""
-                    } `}>
+                    className={`footer-title ${isOpen && collapse == 3 ? "active" : ""
+                      } `}>
                     <h4
                       onClick={() => {
                         if (width) {
@@ -180,7 +161,7 @@ const MasterFooter = ({
                           setCollapse(3);
                         } else setIsOpen(true);
                       }}>
-                      why we choose
+                      Chăm sóc khách hàng
                       <span className="according-menu"></span>
                     </h4>
                   </div>
@@ -189,20 +170,18 @@ const MasterFooter = ({
                     <div className="footer-contant">
                       <ul>
                         <li>
-                          <a href="#">shipping & return</a>
+                          <a href="#">Chính sách đổi trả</a>
                         </li>
                         <li>
-                          <a href="#">secure shopping</a>
+                          <a href="#">Chính sachs khuyến mại</a>
                         </li>
                         <li>
-                          <a href="#">gallary</a>
+                          <a href="#">Chính sách bảo mật</a>
                         </li>
                         <li>
-                          <a href="#">affiliates</a>
+                          <a href="#">Chính sách giao hàng</a>
                         </li>
-                        <li>
-                          <a href="#">contacts</a>
-                        </li>
+                        
                       </ul>
                     </div>
                   </Collapse>
@@ -211,9 +190,8 @@ const MasterFooter = ({
               <Col>
                 <div className="sub-title">
                   <div
-                    className={`footer-title ${
-                      isOpen && collapse == 4 ? "active" : ""
-                    } `}>
+                    className={`footer-title ${isOpen && collapse == 4 ? "active" : ""
+                      } `}>
                     <h4
                       onClick={() => {
                         if (width) {
@@ -221,7 +199,7 @@ const MasterFooter = ({
                           setCollapse(4);
                         } else setIsOpen(true);
                       }}>
-                      store information
+                      Địa chỉ liên hệ
                       <span className="according-menu"></span>
                     </h4>
                   </div>
@@ -230,19 +208,16 @@ const MasterFooter = ({
                     <div className="footer-contant">
                       <ul className="contact-list">
                         <li>
-                          <i className="fa fa-map-marker"></i>Multikart Demo
-                          Store, Demo store India 345-659
+                          <i className="fa fa-map-marker"></i>Tòa E, Đại học công nghệ thông tin, Đại học quốc gia tp.Hồ Chí Minh
                         </li>
                         <li>
-                          <i className="fa fa-phone"></i>Call Us: 123-456-7898
+                          <i className="fa fa-phone"></i>Điện thoại: 01281293123
                         </li>
                         <li>
-                          <i className="fa fa-envelope-o"></i>Email Us:{" "}
-                          <a href="#">Support@Fiot.com</a>
+                          <i className="fa fa-envelope-o"></i>Email:{" "}
+                          <a href="#">Support@uitstore.com</a>
                         </li>
-                        <li>
-                          <i className="fa fa-fax"></i>Fax: 123456
-                        </li>
+                       
                       </ul>
                     </div>
                   </Collapse>
@@ -252,7 +227,7 @@ const MasterFooter = ({
           </Container>
         </section>
 
-             
+
 
         {/* <CopyRight
           layout={layoutClass}

@@ -178,12 +178,12 @@ const CartPage = () => {
             <Row className="cart-buttons">
               <Col xs="6">
                 <Link href={`/shop/left_sidebar`} className="btn btn-solid">
-                  continue shopping
+                  Tiếp tục mua sắm
                 </Link>
               </Col>
               <Col xs="6">
-                <Link href={`/page/account/checkout`} className="btn btn-solid">
-                  check out
+                <Link href={`/account/checkout`} className="btn btn-solid">
+                  Thanh toán
                 </Link>
               </Col>
             </Row>

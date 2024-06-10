@@ -28,10 +28,10 @@ const WishlistPage = () => {
                 <Table className="table cart-table table-responsive-xs">
                   <thead>
                     <tr className="table-head">
-                      <th scope="col">image</th>
-                      <th scope="col">product name</th>
-                      <th scope="col">price</th>
-                      <th scope="col">availability</th>
+                      <th scope="col">Ảnh</th>
+                      <th scope="col">Tên sản phẩm</th>
+                      <th scope="col">Giá</th>
+                      <th scope="col">Tình trạng</th>
                       <th scope="col">action</th>
                     </tr>
                   </thead>
@@ -93,10 +93,10 @@ const WishlistPage = () => {
             <Row className="wishlist-buttons">
               <Col sm="12">
                 <Link href={"/"} className="btn btn-solid">
-                  continue shopping
+                  Tiếp tục mua sắm
                 </Link>
                 <a href={null} className="btn btn-solid" onClick={checkOut}>
-                  check out
+                  Thanh toán
                 </a>
               </Col>
             </Row>

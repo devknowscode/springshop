@@ -116,10 +116,10 @@ const DetailBox = ({ item, changeColorVar }) => {
           onClick={() => addToCart(item, quantity)}
           className="btn btn-solid"
         >
-          add to cart
+          Thêm vào giỏ hàng
         </a>{" "}
         <a href="#" className="btn btn-solid">
-          buy now
+          Mua ngay
         </a>
       </div>
     </div>

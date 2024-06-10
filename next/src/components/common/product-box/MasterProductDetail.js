@@ -40,7 +40,7 @@ const MasterProductDetail = ({
           </del>
         </h4>
 
-        {product.variants.map((vari) => {
+        {/* {product.variants.map((vari) => {
           var findItem = uniqueTags.find((x) => x.color === vari.color);
           if (!findItem) uniqueTags.push(vari);
         })}
@@ -74,7 +74,7 @@ const MasterProductDetail = ({
               ""
             )}
           </>
-        )}
+        )} */}
       </div>
     </div>
   );

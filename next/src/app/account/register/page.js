@@ -4,8 +4,11 @@ import React, { useState } from 'react';
 import CommonLayout from '../../../components/shop/common-layout';
 import { Input, Container, Row, Form, Label ,Col, Button, FormGroup } from 'reactstrap';
 import axios from 'axios';
+import { useRouter } from "next/navigation";
+import { useAuth } from '@/helpers/auth/AuthContext';
 
 const Register = () => {
+    const {setSessionToken} = useAuth();
     const [formData, setFormData] = useState({
         fullname: '',
         email: '',
@@ -13,7 +16,7 @@ const Register = () => {
         retype_password: '',
         role_id: 2
     });
-
+    const router = useRouter();
     const handleChange = (e) => {
         setFormData({
             ...formData,
@@ -24,8 +27,13 @@ const Register = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:8088/v1/api/auth/signup', formData);
-            console.log('Registration successful:', response.data);
+            const response = await axios.post(
+                'http://localhost:8088/v1/api/auth/signup', 
+                formData
+            );
+            const result = await axios.post("/api/auth", response.data);
+            setSessionToken(result.data.res.metadata.token)
+            router.push("/");
         } catch (error) {
             console.error('There was an error registering:', error);
         }
@@ -37,7 +45,7 @@ const Register = () => {
                 <Container>
                     <Row>
                         <Col lg="12">
-                            <h3>create account</h3>
+                            <h3>Tạo tài khoản</h3>
                             <div className="theme-card">
                                 <Form className="theme-form" onSubmit={handleSubmit}>
                                     <Row>
@@ -61,7 +69,7 @@ const Register = () => {
                                     <Row>
                                         <Col md="6">
                                             <FormGroup>
-                                                <Label className="form-label" for="password">Password</Label>
+                                                <Label className="form-label" for="password">Mật khẩu</Label>
                                                 <Input type="password" className="form-control" id="password"
                                                     placeholder="Enter your password" required=""
                                                     onChange={handleChange} />
@@ -69,14 +77,14 @@ const Register = () => {
                                         </Col>
                                         <Col md="6">
                                             <FormGroup>
-                                                <Label className="form-label" for="retype_password">Retype Password</Label>
+                                                <Label className="form-label" for="retype_password">Nhập lại mật khẩu</Label>
                                                 <Input type="password" className="form-control" id="retype_password" placeholder="Retype Password"
                                                     required=""
                                                     onChange={handleChange} />
                                             </FormGroup>
                                         </Col>
                                         <Col md="12">
-                                            <Button className="btn btn-solid w-auto">create Account</Button>
+                                            <Button className="btn btn-solid w-auto">Tạo tài khoản</Button>
                                         </Col>
                                     </Row>
                                 </Form>
