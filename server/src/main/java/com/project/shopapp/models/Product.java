@@ -23,29 +23,27 @@ public class Product extends BaseEntity {
     @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
     private String description;
 
-    private String thumbnail;
+    private Double ratingAverage = 4.5;
 
     @Column(nullable = false)
-    private Double price;
-
-    private Integer quantity;
-
-    private Double ratingAverage = 4.5;
     private Boolean isDraft = true;
+
+    @Column(nullable = false)
     private Boolean isPublished = false;
     private String slug;
+
+    @Column(nullable = false)
+    private Boolean isDeleted = false;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
 
-    @OneToMany(mappedBy = "product")
-    private List<ProductImage> productImages;
-
-    @OneToMany(mappedBy = "product")
-    private List<ProductAttribute> productAttributes;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<ProductVariant> productVariants;
 
     @OneToMany(mappedBy = "product")
     private List<OrderProduct> orderProducts;

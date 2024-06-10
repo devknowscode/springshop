@@ -3,6 +3,8 @@ package com.project.shopapp.models;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "product_images")
 @Getter
@@ -12,15 +14,14 @@ import lombok.*;
 @NoArgsConstructor
 public class ProductImage {
 
-    public static final int MAXIMUM_IMAGES_PER_PRODUCT = 8;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String image_url;
+    private String src;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
+    private String alt;
+
+    @OneToOne(mappedBy = "productImage")
+    private ProductVariant productVariant;
 }

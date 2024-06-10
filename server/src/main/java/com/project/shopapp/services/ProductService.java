@@ -16,7 +16,7 @@ public interface ProductService {
     Page<ProductResponse> getAllProducts(String keyword, Long categoryId, PageRequest pageRequest);
 
     @Transactional
-    ProductResponse createProduct(ProductDto productDto, List<MultipartFile> files)
+    ProductResponse createProduct(ProductDto productDto, MultipartFile file)
             throws Exception;
 
     ProductResponse getProductById(Long id) throws Exception;

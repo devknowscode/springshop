@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 
 @Data
 @Builder
@@ -27,12 +28,8 @@ public class ProductDto {
     @Digits(integer = 4, fraction = 2)
     private Double price;
 
-    @Min(value = 0)
-    @Max(value = 99)
-    private Integer quantity;
-
-    @JsonProperty("product_attributes")
-    private List<ProductAttributeDto> productAttributes;
+    @JsonProperty("product_variant")
+    private Map<String, String> productVariant;
 
     @JsonProperty("category_id")
     @NotNull(message = "Category ID is required")
