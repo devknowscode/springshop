@@ -40,7 +40,7 @@ const Login = () => {
         formData
       );
       const result = await axios.post("/api/auth", response.data);
-      setSessionToken(result.data.res.metadata.token)
+      setSessionToken(result.data.res.metadata.token);
       router.push("/");
     } catch (error) {
       console.error("There was an error login:", error);
@@ -54,7 +54,7 @@ const Login = () => {
         <Container>
           <Row>
             <Col lg="6">
-              <h3>Login</h3>
+              <h3>Đăng nhập</h3>
               <div className="theme-card">
                 <Form className="theme-form" onSubmit={handleSubmit}>
                   <div className="form-group">
@@ -87,21 +87,19 @@ const Login = () => {
                       />
                     </FormGroup>
                   </div>
-                  <Button className="btn btn-solid">Login</Button>
+                  <Button className="btn btn-solid">Đăng nhập</Button>
                 </Form>
               </div>
             </Col>
             <Col lg="6" className="right-login">
-              <h3>New Customer</h3>
+              <h3>Khách hàng mới</h3>
               <div className="theme-card authentication-right">
-                <h6 className="title-font">Create A Account</h6>
+                <h6 className="title-font">Tạo tài khoản</h6>
                 <p>
-                  Sign up for a free account at our store. Registration is quick
-                  and easy. It allows you to be able to order from our shop. To
-                  start shopping click register.
+                 Nếu chưa có tài khoản, hãy tạo tài khoản!.
                 </p>
-                <a href="/page/account/register" className="btn btn-solid">
-                  Create an Account
+                <a href="/account/register" className="btn btn-solid">
+                  Tạo tài khoản
                 </a>
               </div>
             </Col>

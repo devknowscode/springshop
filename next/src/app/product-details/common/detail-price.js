@@ -131,7 +131,7 @@ const DetailsWithPrice = ({ item, stickyClass, changeColorVar }) => {
           <a href={null} className="btn btn-solid" onClick={() => context.addToCart(product, quantity)}>
             add to cart
           </a>
-          <Link href={`/page/account/checkout`} className="btn btn-solid" onClick={() => context.addToCart(product, quantity)}>
+          <Link href={`/account/checkout`} className="btn btn-solid" onClick={() => context.addToCart(product, quantity)}>
             buy now
           </Link>
         </div>

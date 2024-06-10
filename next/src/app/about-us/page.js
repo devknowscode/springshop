@@ -11,27 +11,27 @@ import ServiceLayout from "../../components/common/Service/service1.js";
 const TeamData = [
   {
     img: "/assets/images/team/1.jpg",
-    name: "Hileri Keol",
+    name: "Trung Lê Quang",
     post: "CEo & Founder At Company",
   },
   {
     img: "/assets/images/team/2.jpg",
-    name: "Hileri Keol",
+    name: "Trung Nguyễn Minh",
     post: "CEo & Founder At Company",
   },
   {
     img: "/assets/images/team/3.jpg",
-    name: "Hileri Keol",
+    name: "Phát Nguyễn Lý",
     post: "CEo & Founder At Company",
   },
   {
     img: "/assets/images/team/4.jpg",
-    name: "Hileri Keol",
+    name: "Nhàn Nguyễn Thị",
     post: "CEo & Founder At Company",
   },
   {
     img: "/assets/images/team/1.jpg",
-    name: "Hileri Keol",
+    name: "Trung Lê Quang",
     post: "CEo & Founder At Company",
   },
 ];
@@ -117,15 +117,15 @@ const AboutUs = () => {
                 </div>
               </Col>
               <Col sm="12">
-                <h4>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium</h4>
-                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,</p>
+                <h4>Hãy tự tin bước tiếp, nếu hôm nay bạn dừng lại thì hãy nhìn ra xa, chắc chắn mọi người cùng dừng lại giống bạn, đừng sợ nha!</h4>
+                <p>Hãy tự tin bước tiếp, nếu hôm nay bạn dừng lại thì hãy nhìn ra xa, chắc chắn mọi người cùng dừng lại giống bạn, đừng sợ nha!</p>
                 <p>
-                  On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they
-                  cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through
-                  shrinking from toil and pain. These cases are perfectly simple and easy to distinguish. In a free hour, when our power of choice is untrammelled and when nothing prevents our being
-                  able to do what we like best, every pleasure is to be welcomed and every pain avoided. But in certain circumstances and owing to the claims of duty or the obligations of business it
-                  will frequently occur that pleasures have to be repudiated and annoyances accepted. The wise man therefore always holds in these matters to this principle of selection: he rejects
-                  pleasures to secure other greater pleasures, or else he endures pains to avoid worse pains.
+                  Mặt khác, chúng tôi lên án với sự phẫn nộ chính đáng và không thích những người đàn ông bị mê hoặc và mất tinh thần bởi sự quyến rũ của thú vui nhất thời, đến mức họ mù quáng vì ham muốn.
+                  không thể thấy trước nỗi đau và rắc rối chắc chắn sẽ xảy ra sau đó; và sự đổ lỗi ngang nhau thuộc về những người thất bại trong nhiệm vụ của mình do ý chí yếu kém, điều này cũng giống như nói qua
+                  co rúm lại vì vất vả và đau đớn. Những trường hợp này là hoàn toàn đơn giản và dễ dàng để phân biệt. Trong một giờ rảnh rỗi, khi quyền lựa chọn của chúng ta không bị cản trở và khi không có gì ngăn cản sự tồn tại của chúng ta
+                  được làm điều mình thích nhất, mọi niềm vui đều được đón nhận và mọi nỗi đau đều tránh được. Nhưng trong một số trường hợp nhất định và do các yêu cầu về nghĩa vụ hoặc nghĩa vụ kinh doanh,
+                  sẽ thường xuyên xảy ra việc niềm vui phải bị từ chối và sự khó chịu phải được chấp nhận. Do đó, người khôn ngoan luôn tuân theo nguyên tắc lựa chọn này trong những vấn đề này: anh ta bác bỏ
+                  vui để đạt được những thú vui khác lớn hơn, nếu không thì anh ta chịu đựng nỗi đau để tránh những nỗi đau tồi tệ hơn.
                 </p>
               </Col>
             </Row>
@@ -133,7 +133,7 @@ const AboutUs = () => {
         </section>
 
         {/* <!--Testimonial start--> */}
-        <section className="testimonial small-section">
+        {/* <section className="testimonial small-section">
           <Container>
             <Row>
               <Col sm="12">
@@ -145,7 +145,7 @@ const AboutUs = () => {
               </Col>
             </Row>
           </Container>
-        </section>
+        </section> */}
         {/* <!--Testimonial ends--> */}
 
         {/* <!--Team start--> */}

@@ -66,7 +66,7 @@ const ModalComponent = () => {
                         className="btn btn-solid"
                         id="mc-submit"
                       >
-                        subscribe
+                        Đăng ký
                       </Button>
                     </div>
                   </Form>

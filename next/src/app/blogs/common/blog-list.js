@@ -7,11 +7,11 @@ const BlogList = () => {
       {
         "img": "/assets/images/blog/1.jpg",
         "link": "/blog/details",
-        "title": "25 January 2018",
+        "title": "25-8-2012",
         "desc": "Lorem ipsum dolor sit consectetur adipiscing elit",
-        "date": "by: John Dio , 2 Comment",
-        "longDesc": "Consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure.",
-        "shortDesc": "you how all this mistaken idea of denouncing pleasure and praising pain was born"
+        "date": "by: Hà Duy Tân , 2 Comment",
+        "longDesc": "Hậu quả vô cùng đau đớn. Cũng không có ai yêu thương, theo đuổi hay mong muốn đạt được nỗi đau cho riêng mình, bởi vì đó là nỗi đau, mà bởi vì đôi khi có những hoàn cảnh xảy ra trong đó sự vất vả và đau đớn có thể mang lại cho anh ta niềm vui lớn lao nào đó.",
+        "shortDesc": "bạn làm thế nào mà tất cả những ý tưởng sai lầm về việc tố cáo niềm vui và ca ngợi nỗi đau lại ra đời"
       },
       {
         "img": "/assets/images/blog/2.jpg",
@@ -19,8 +19,8 @@ const BlogList = () => {
         "title": "26 January 2018",
         "desc": "Lorem ipsum dolor sit consectetur adipiscing elit",
         "date": "by: John Dio , 2 Comment",
-        "longDesc": "Consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure.",
-        "shortDesc": "you how all this mistaken idea of denouncing pleasure and praising pain was born"
+        "longDesc": "Hậu quả vô cùng đau đớn. Cũng không có ai yêu thương, theo đuổi hay mong muốn đạt được nỗi đau cho riêng mình, bởi vì đó là nỗi đau, mà bởi vì đôi khi có những hoàn cảnh xảy ra trong đó sự vất vả và đau đớn có thể mang lại cho anh ta niềm vui lớn lao nào đó.",
+        "shortDesc": "bạn làm thế nào mà tất cả những ý tưởng sai lầm về việc tố cáo niềm vui và ca ngợi nỗi đau lại ra đời"
       },
       {
         "img": "/assets/images/blog/3.jpg",
@@ -28,8 +28,8 @@ const BlogList = () => {
         "title": "29 January 2018",
         "desc": "Lorem ipsum dolor sit consectetur adipiscing elit",
         "date": "by: John Dio , 2 Comment",
-        "longDesc": "Consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure.",
-        "shortDesc": "you how all this mistaken idea of denouncing pleasure and praising pain was born"
+        "longDesc": "Hậu quả vô cùng đau đớn. Cũng không có ai yêu thương, theo đuổi hay mong muốn đạt được nỗi đau cho riêng mình, bởi vì đó là nỗi đau, mà bởi vì đôi khi có những hoàn cảnh xảy ra trong đó sự vất vả và đau đớn có thể mang lại cho anh ta niềm vui lớn lao nào đó.",
+        "shortDesc": "bạn làm thế nào mà tất cả những ý tưởng sai lầm về việc tố cáo niềm vui và ca ngợi nỗi đau lại ra đời"
       },
       {
         "img": "/assets/images/blog/4.jpg",
@@ -37,8 +37,8 @@ const BlogList = () => {
         "title": "29 January 2018",
         "desc": "Lorem ipsum dolor sit consectetur adipiscing elit",
         "date": "by: John Dio , 2 Comment",
-        "longDesc": "Consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure.",
-        "shortDesc": "you how all this mistaken idea of denouncing pleasure and praising pain was born"
+        "longDesc": "Hậu quả vô cùng đau đớn. Cũng không có ai yêu thương, theo đuổi hay mong muốn đạt được nỗi đau cho riêng mình, bởi vì đó là nỗi đau, mà bởi vì đôi khi có những hoàn cảnh xảy ra trong đó sự vất vả và đau đớn có thể mang lại cho anh ta niềm vui lớn lao nào đó.",
+        "shortDesc": "bạn làm thế nào mà tất cả những ý tưởng sai lầm về việc tố cáo niềm vui và ca ngợi nỗi đau lại ra đời"
       },
       {
         "img": "/assets/images/blog/5.jpg",
@@ -46,8 +46,8 @@ const BlogList = () => {
         "title": "29 January 2018",
         "desc": "Lorem ipsum dolor sit consectetur adipiscing elit",
         "date": "by: John Dio , 2 Comment",
-        "longDesc": "Consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure.",
-        "shortDesc": "you how all this mistaken idea of denouncing pleasure and praising pain was born"
+        "longDesc": "Hậu quả vô cùng đau đớn. Cũng không có ai yêu thương, theo đuổi hay mong muốn đạt được nỗi đau cho riêng mình, bởi vì đó là nỗi đau, mà bởi vì đôi khi có những hoàn cảnh xảy ra trong đó sự vất vả và đau đớn có thể mang lại cho anh ta niềm vui lớn lao nào đó.",
+        "shortDesc": "bạn làm thế nào mà tất cả những ý tưởng sai lầm về việc tố cáo niềm vui và ca ngợi nỗi đau lại ra đời"
       },
       {
         "img": "/assets/images/blog/6.jpg",
@@ -55,8 +55,8 @@ const BlogList = () => {
         "title": "29 January 2018",
         "desc": "Lorem ipsum dolor sit consectetur adipiscing elit",
         "date": "by: John Dio , 2 Comment",
-        "longDesc": "Consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure.",
-        "shortDesc": "you how all this mistaken idea of denouncing pleasure and praising pain was born"
+        "longDesc": "Hậu quả vô cùng đau đớn. Cũng không có ai yêu thương, theo đuổi hay mong muốn đạt được nỗi đau cho riêng mình, bởi vì đó là nỗi đau, mà bởi vì đôi khi có những hoàn cảnh xảy ra trong đó sự vất vả và đau đớn có thể mang lại cho anh ta niềm vui lớn lao nào đó.",
+        "shortDesc": "bạn làm thế nào mà tất cả những ý tưởng sai lầm về việc tố cáo niềm vui và ca ngợi nỗi đau lại ra đời"
       }
     ]
   }

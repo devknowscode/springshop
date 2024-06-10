@@ -207,6 +207,7 @@ i18next
                     product_box: 'Hộp sản phẩm',
                     product_slider: 'Thanh trượt sản phẩm',
                     no_slider: 'Không thanh trượt',
+                
                 }
             }
         },

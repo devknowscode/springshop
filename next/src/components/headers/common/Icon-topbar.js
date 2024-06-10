@@ -39,11 +39,8 @@ const IconTopbar = () => {
             <Col sm="6">
               <div className="header-contact">
                 <ul>
-                  <li>Welcome to Our store Multikart</li>
-                  <li>
-                    <i className="fa fa-phone" aria-hidden="true"></i>Call Us:
-                    123 - 456 - 7890
-                  </li>
+                  <li>Welcome to UIT store</li>
+                  
                 </ul>
               </div>
               <div className="menu-left">
@@ -84,12 +81,12 @@ const IconTopbar = () => {
                     <ul className="onhover-show-div">
                       <li>
                         <Link href="/page/account/login" data-lng="en">
-                          Login
+                          Đăng nhập
                         </Link>
                       </li>
                       <li>
                         <Link href="/" data-lng="es">
-                          Logout
+                          Đăng xuất
                         </Link>
                       </li>
                     </ul>

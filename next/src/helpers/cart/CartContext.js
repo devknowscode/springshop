@@ -96,6 +96,13 @@ const CartProvider = (props) => {
     }
   };
 
+  // Clear Cart
+  const clearCart = () => {
+    setCartItems([]);
+    localStorage.removeItem("cartList");
+    //toast.error("Cart Cleared Successfully !");
+  };
+
   return (
     <Context.Provider
       value={{
@@ -110,6 +117,7 @@ const CartProvider = (props) => {
         plusQty: plusQty,
         minusQty: minusQty,
         updateQty: updateQty,
+        clearCart: clearCart,
       }}
     >
       {props.children}

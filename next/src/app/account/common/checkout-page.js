@@ -1,3 +1,4 @@
+
 import React, { useContext, useState } from "react";
 import { Media, Container, Form, Row, Col } from "reactstrap";
 import CartContext from "../../../helpers/cart";
@@ -13,9 +14,11 @@ const CheckoutPage = () => {
   const cartItems = cartContext.state;
   const cartTotal = cartContext.cartTotal;
   const curContext = useContext(CurrencyContext);
+  const clearCart = cartContext.clearCart;
   const symbol = curContext.state.symbol;
   const [obj, setObj] = useState({});
   const [payment, setPayment] = useState("cod");
+  
   const {
     register,
     handleSubmit,
@@ -29,11 +32,14 @@ const CheckoutPage = () => {
 
   const onSubmit = (data) => {
     if (data !== "") {
-      alert("You submitted the form and stuff!");
-      router.push({
-        pathname: "/page/order-success",
-        state: { items: cartItems, orderTotal: cartTotal, symbol: symbol },
-      });
+      alert("Chức mừng bạn đặt hàng thành công!");
+      // router.push({
+      //   pathname: "/page/order-success",
+      //   state: { items: cartItems, orderTotal: cartTotal, symbol: symbol },
+      // });
+      clearCart();
+      router.push("/");
+      
     } else {
       errors.showMessages();
     }
@@ -54,26 +60,26 @@ const CheckoutPage = () => {
               <Row>
                 <Col lg="6" sm="12" xs="12">
                   <div className="checkout-title">
-                    <h3>Billing Details</h3>
+                    <h3>Chi tiết thanh toán</h3>
                   </div>
                   <div className="row check-out">
-                    <div className="form-group col-md-6 col-sm-6 col-xs-12">
-                      <div className="field-label">First Name</div>
-                      <input type="text" className={`${errors.firstName ? "error_border" : ""}`} name="first_name" {...register("first_name", { required: true })} />
-                      <span className="error-message">{errors.firstName && "First name is required"}</span>
+                    <div className="form-group col-md-12 col-sm-12 col-xs-12">
+                      <div className="field-label">Họ Và Tên</div>
+                      <input type="text" className={`${errors.fullname ? "error_border" : ""}`} name="first_name" {...register("fullname", { required: true })} />
+                      <span className="error-message">{errors.fullname && "First name is required"}</span>
                     </div>
-                    <div className="form-group col-md-6 col-sm-6 col-xs-12">
+                    {/* <div className="form-group col-md-6 col-sm-6 col-xs-12">
                       <div className="field-label">Last Name</div>
                       <input type="text" className={`${errors.last_name ? "error_border" : ""}`} name="last_name" {...register("last_name", { required: true })} />
                       <span className="error-message">{errors.last_name && "Last name is required"}</span>
-                    </div>
+                    </div> */}
                     <div className="form-group col-md-6 col-sm-6 col-xs-12">
-                      <div className="field-label">Phone</div>
+                      <div className="field-label">Điện thoại</div>
                       <input type="text" name="phone" className={`${errors.phone ? "error_border" : ""}`} {...register("phone", { pattern: /\d+/ })} />
                       <span className="error-message">{errors.phone && "Please enter number for phone."}</span>
                     </div>
                     <div className="form-group col-md-6 col-sm-6 col-xs-12">
-                      <div className="field-label">Email Address</div>
+                      <div className="field-label">Địa chỉ Email</div>
                       <input
                         //className="form-control"
                         className={`${errors.email ? "error_border" : ""}`}
@@ -87,16 +93,18 @@ const CheckoutPage = () => {
                       <span className="error-message">{errors.email && "Please enter proper email address ."}</span>
                     </div>
                     <div className="form-group col-md-12 col-sm-12 col-xs-12">
-                      <div className="field-label">Country</div>
+                      <div className="field-label">Thành phố</div>
                       <select name="country" {...register("country", { required: true })}>
-                        <option>India</option>
-                        <option>South Africa</option>
-                        <option>United State</option>
-                        <option>Australia</option>
+                        <option>Thành phố Hồ Chí Minh</option>
+                        <option>Thành phố Hà Nội</option>
+                        <option>Bình Dương</option>
+                        <option>Hải Phòng</option>
+                        <option>Cần Thơ</option>
+                        <option>Đà Nẵng</option>
                       </select>
                     </div>
                     <div className="form-group col-md-12 col-sm-12 col-xs-12">
-                      <div className="field-label">Address</div>
+                      <div className="field-label">Địa chỉ</div>
                       <input
                         //className="form-control"
                         className={`${errors.address ? "error_border" : ""}`}
@@ -108,31 +116,20 @@ const CheckoutPage = () => {
                       <span className="error-message">{errors.address && "Please right your address ."}</span>
                     </div>
                     <div className="form-group col-md-12 col-sm-12 col-xs-12">
-                      <div className="field-label">Town/City</div>
+                      <div className="field-label">Mã ưu đãi</div>
                       <input
                         //className="form-control"
                         type="text"
                         className={`${errors.city ? "error_border" : ""}`}
                         name="city"
-                        {...register("city", { required: true })}
+                        // ss
                         onChange={setStateFromInput}
                       />
                       <span className="error-message">{errors.city && "select one city"}</span>
                     </div>
-                    <div className="form-group col-md-12 col-sm-6 col-xs-12">
-                      <div className="field-label">State / County</div>
-                      <input
-                        //className="form-control"
-                        type="text"
-                        className={`${errors.state ? "error_border" : ""}`}
-                        name="state"
-                        {...register("state", { required: true })}
-                        onChange={setStateFromInput}
-                      />
-                      <span className="error-message">{errors.state && "select one state"}</span>
-                    </div>
-                    <div className="form-group col-md-12 col-sm-6 col-xs-12">
-                      <div className="field-label">Postal Code</div>
+                   
+                    {/* <div className="form-group col-md-12 col-sm-6 col-xs-12">
+                      <div className="field-label">Mã ưu đãi</div>
                       <input
                         //className="form-control"
                         type="text"
@@ -141,11 +138,11 @@ const CheckoutPage = () => {
                         {...register("pincode", { pattern: /\d+/ })}
                       />
                       <span className="error-message">{errors.pincode && "Required integer"}</span>
-                    </div>
-                    <div className="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    </div> */}
+                    {/* <div className="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                       <input type="checkbox" name="create_account" id="account-option" />
                       &ensp; <label htmlFor="account-option">Create An Account?</label>
-                    </div>
+                    </div> */}
                   </div>
                 </Col>
                 <Col lg="6" sm="12" xs="12">
@@ -154,7 +151,7 @@ const CheckoutPage = () => {
                       <div className="order-box">
                         <div className="title-box">
                           <div>
-                            Product <span>Total</span>
+                            Sản phẩm <span>Giá trị</span>
                           </div>
                         </div>
                         <ul className="qty">
@@ -170,29 +167,29 @@ const CheckoutPage = () => {
                         </ul>
                         <ul className="sub-total">
                           <li>
-                            Subtotal{" "}
+                            Tổng giá trị{" "}
                             <span className="count">
                               {symbol}
                               {cartTotal}
                             </span>
                           </li>
                           <li>
-                            Shipping
+                            Phí ship
                             <div className="shipping">
                               <div className="shopping-option">
                                 <input type="checkbox" name="free-shipping" id="free-shipping" />
-                                <label htmlFor="free-shipping">Free Shipping</label>
+                                <label htmlFor="free-shipping">Miễn phí giao hàng</label>
                               </div>
-                              <div className="shopping-option">
+                              {/* <div className="shopping-option">
                                 <input type="checkbox" name="local-pickup" id="local-pickup" />
-                                <label htmlFor="local-pickup">Local Pickup</label>
-                              </div>
+                                <label htmlFor="local-pickup">Chọn địa chỉ giao hàng</label>
+                              </div> */}
                             </div>
                           </li>
                         </ul>
                         <ul className="total">
                           <li>
-                            Total{" "}
+                           Tổng đơn hàng{" "}
                             <span className="count">
                               {symbol}
                               {cartTotal}
@@ -228,7 +225,7 @@ const CheckoutPage = () => {
                           <div className="text-end">
                             {payment === "cod" ? (
                               <button type="submit" className="btn-solid btn">
-                                Place Order
+                                Đặt hàng
                               </button>
                             ) : (
                               <PayPalScriptProvider options={{ clientId: "test" }}>

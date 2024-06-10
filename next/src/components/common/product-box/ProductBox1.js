@@ -74,7 +74,7 @@ const ProductItem = ({ product, addCart, backImage, des, addWishlist, cartClass,
             <i className="fa fa-search" aria-hidden="true"></i>
           </a>
         </div>
-        {product.images ? (
+        {/* {product.images ? (
           <ul className="product-thumb-list">
             {product.images.map((img, i) => (
               <li className={`grid_thumb_img ${img.src === image ? "active" : ""}`} key={i}>
@@ -86,7 +86,7 @@ const ProductItem = ({ product, addCart, backImage, des, addWishlist, cartClass,
           </ul>
         ) : (
           ""
-        )}
+        )} */}
       </div>
       <MasterProductDetail product={product} productDetail={productDetail} currency={currency} uniqueTags={uniqueTags} title={title} des={des} variantChangeByColor={variantChangeByColor} />
       {/* <MasterProductDetail product={product} productDetail={productDetail} currency={currency} uniqueTags={uniqueTags} title={title} des={des} /> */}

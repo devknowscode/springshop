@@ -42,28 +42,28 @@ const TopBarDark = ({ topClass, fluid }) => {
             <ul className="header-dropdown">
               <li className="mobile-wishlist">
                 <Link href="/account/wishlist">
-                  <i className="fa fa-heart" aria-hidden="true"></i> wishlist
+                  <i className="fa fa-heart" aria-hidden="true"></i> Yêu thích
                 </Link>
               </li>
               <li className="onhover-dropdown mobile-account">
-                <i className="fa fa-user" aria-hidden="true"></i> My Account
+                <i className="fa fa-user" aria-hidden="true"></i> Tài khoản
                 <ul className="onhover-show-div">
                   {sessionToken ? (
                     <>
                       <li>
-                        <Link href={`/account/dashboard`}>My Account</Link>
+                        <Link href={`/account/dashboard`}>Tài khoản</Link>
                       </li>
                       <li onClick={Logout}>
-                        <a>Logout</a>
+                        <a>Đăng xuất</a>
                       </li>
                     </>
                   ) : (
                     <>
                       <li>
-                        <Link href={`/account/login`}>Login</Link>
+                        <Link href={`/account/login`}>Đăng nhập</Link>
                       </li>
                       <li>
-                        <Link href={`/account/register`}>Register</Link>
+                        <Link href={`/account/register`}>Đăng ký</Link>
                       </li>
                     </>
                   )}
