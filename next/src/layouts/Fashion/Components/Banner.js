@@ -5,14 +5,14 @@ import MasterBanner from "./MasterBanner";
 const Data = [
   {
     img: "home1",
-    title: "welcome to fashion",
-    desc: "men fashion",
+    title: "",
+    desc: "",
     link: "/shop/left_sidebar",
   },
   {
     img: "home2",
-    title: "welcome to fashion",
-    desc: "women fashion",
+    title: "",
+    desc: "",
     link: "/shop/left_sidebar",
   },
 ];
