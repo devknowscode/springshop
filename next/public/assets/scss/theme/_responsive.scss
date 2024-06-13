@@ -2744,6 +2744,10 @@ body {
       .qty-box {
         justify-content: center;
       }
+
+      .pleft {
+        padding-left: 10px;
+      }
     }
     .size-text {
       text-align: left;
@@ -5676,14 +5680,6 @@ body {
     }
   }
   .product-box {
-    .img-wrapper {
-      .lable-block {
-        .lable3 {
-          font-size: 12px;
-          padding: 10px 5px;
-        }
-      }
-    }
     .img-block {
       .lable-wrapper {
         .lable1,
@@ -6941,12 +6937,6 @@ body {
   }
   .product-box {
     .img-wrapper {
-      .lable-block {
-        .lable3 {
-          font-size: 10px;
-          padding: 10px 5px;
-        }
-      }
       .cart-box {
         padding: 8px 8px;
         bottom: 10px;

@@ -9,16 +9,12 @@ const CartHeader = ({ item, symbol }) => {
     <Fragment>
       <li>
         <div className="media">
-          <Link href={"/product-details/" + item.id}>
-            {/* <a> */}
-            <Media alt="" className="me-3" src={`${item.images[0].src}`} />
-            {/* </a> */}
+          <Link href={"/product-details/" + item.slug}>
+            <Media alt="" className="me-3" src={`${process.env.IMAGE_SERVER_URL + item.images[0].src}`} />
           </Link>
           <div className="media-body">
-            <Link href={"/product-details/" + item.id}>
-              {/* <a> */}
+            <Link href={"/product-details/" + item.slug}>
               <h6>{item.title}</h6>
-              {/* </a> */}
             </Link>
 
             <h4>

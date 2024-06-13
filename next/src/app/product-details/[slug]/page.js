@@ -5,12 +5,12 @@ import ProductSection from "../common/product_section";
 import LeftImagePage from "../product/leftImagePage";
 
 const LeftSidebar = ({ params  }) => {
-  const id = params.id;
-  console.log(id)
+  const {slug} = params;
+  console.log({slug})
 
   return (
     <CommonLayout parent="Home" title="Product">
-      <LeftImagePage pathId={id} />
+      <LeftImagePage slug={slug} />
       <ProductSection />
     </CommonLayout>
   );

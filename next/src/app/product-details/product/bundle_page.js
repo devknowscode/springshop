@@ -109,7 +109,7 @@ const BundleProductPage = () => {
                         ? data.product.images.map((vari, index) => (
                             <div key={index}>
                               <Media
-                                src={`${vari.src}`}
+                                src={`${process.env.IMAGE_SERVER_URL + vari.src}`}
                                 key={index}
                                 alt={vari.alt}
                                 className="img-fluid"

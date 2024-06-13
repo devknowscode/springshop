@@ -7,31 +7,31 @@ import { CurrencyContext } from "../../../helpers/Currency/CurrencyContext";
 const Currency = ({ icon }) => {
   var data = {
     "getCurrency": [
-          {
-            "currency": "USD",
-            "name": "doller",
-            "symbol": "$",
-            "value": 1
-          },
-          {
-            "currency": "IND",
-            "name": "rupees",
-            "symbol": "₹",
-            "value": 60
-          },
-          {
-            "currency": "EUR",
-            "name": "euro",
-            "symbol": "€",
-            "value": 52
-          },
-          {
-            "currency": "GBP",
-            "name": "pound",
-            "symbol": "£",
-            "value": 62
-          }
-        ]  
+          // {
+          //   "currency": "USD",
+          //   "name": "doller",
+          //   "symbol": "$",
+          //   "value": 1
+          // },
+          // {
+          //   "currency": "IND",
+          //   "name": "rupees",
+          //   "symbol": "₹",
+          //   "value": 60
+          // },
+          // {
+          //   "currency": "EUR",
+          //   "name": "euro",
+          //   "symbol": "€",
+          //   "value": 52
+          // },
+          // {
+          //   "currency": "GBP",
+          //   "name": "pound",
+          //   "symbol": "£",
+          //   "value": 62
+          // }
+        ]
     };
 
   const Context = useContext(CurrencyContext);
@@ -64,7 +64,7 @@ const Currency = ({ icon }) => {
             </li>
           ))}
         </ul>
-        <h6>currency</h6>
+        {/* <h6>currency</h6>
         <ul className="list-inline">
           {data &&
             data.getCurrency.map((cur, i) => (
@@ -74,7 +74,7 @@ const Currency = ({ icon }) => {
                 </div>
               </li>
             ))}
-        </ul>
+        </ul> */}
       </div>
     </li>
   );

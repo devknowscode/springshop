@@ -19,11 +19,15 @@ const CartProvider = (props) => {
   const [cartItems, setCartItems] = useState(getLocalCartItems());
   const [cartTotal, setCartTotal] = useState(0);
   const [quantity, setQuantity] = useState(1);
-  const [stock, setStock] = useState("InStock");
+  const [stock, setStock] = useState("In Stock");
 
   useEffect(() => {
-    const Total = cartItems.reduce((a, b) => a + b.total, 0);
-    setCartTotal(Total);
+    const initialTotal = 0;
+    const total = cartItems.reduce(
+      (prevTotal, currentItem) => prevTotal + currentItem.total, 
+      initialTotal
+    );
+    setCartTotal(total);
 
     localStorage.setItem("cartList", JSON.stringify(cartItems));
   }, [cartItems]);

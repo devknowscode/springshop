@@ -2,12 +2,12 @@
 
 import React, { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
-import TapTop from "../components/common/widgets/Tap-Top";
-import CartContextProvider from "../helpers/cart/CartContext";
-import { WishlistContextProvider } from "../helpers/wishlist/WishlistContext";
-import FilterProvider from "../helpers/filter/FilterProvider";
-import SettingProvider from "../helpers/theme-setting/SettingProvider";
-import { CurrencyContextProvider } from "../helpers/Currency/CurrencyContext";
+import TapTop from "@/components/common/widgets/Tap-Top";
+import CartContextProvider from "@/helpers/cart/CartContext";
+import { WishlistContextProvider } from "@/helpers/wishlist/WishlistContext";
+import FilterProvider from "@/helpers/filter/FilterProvider";
+import SettingProvider from "@/helpers/theme-setting/SettingProvider";
+import { CurrencyContextProvider } from "@/helpers/Currency/CurrencyContext";
 import Helmet from "react-helmet";
 
 export default function AppProvider({ children, pageProps }) {

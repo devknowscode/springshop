@@ -67,19 +67,19 @@ const CartPage = () => {
                       <tbody key={index}>
                         <tr>
                           <td>
-                            <Link href={`/left-sidebar/product/` + item.id}>
+                            <Link href={`/product-details/` + item.slug}>
                               <Media
                                 src={
                                   item.images
-                                    ? item.images[0].src
-                                    : item.images[0].src
+                                    ? process.env.IMAGE_SERVER_URL + item.images[0].src
+                                    : process.env.IMAGE_SERVER_URL + item.images[0].src
                                 }
                                 alt=""
                               />
                             </Link>
                           </td>
                           <td>
-                            <Link href={`/left-sidebar/product/` + item.id}>
+                            <Link href={`/product-details/` + item.slug}>
                               {item.title}
                             </Link>
                             <div className="mobile-cart-content row">
@@ -153,7 +153,7 @@ const CartPage = () => {
                           <td>
                             <h2 className="td-color">
                               {symbol}
-                              {item.total}
+                              {item.total.toFixed(2)}
                             </h2>
                           </td>
                         </tr>
@@ -167,7 +167,7 @@ const CartPage = () => {
                       <td>total price :</td>
                       <td>
                         <h2>
-                          {symbol} {total}{" "}
+                          {symbol} {total.toFixed(2)}
                         </h2>
                       </td>
                     </tr>

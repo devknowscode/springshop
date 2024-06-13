@@ -55,24 +55,15 @@ const DashboardSidebar = () => {
         </div>
         <div className="block-content">
           <ul>
-            {/* <li className="active">
-              <a href="#">Account Info</a>
+            <li className="active">
+              <a href="/account/dashboard">Thông tin tài khoản</a>
             </li>
-            <li>
-              <a href="#">Address Book</a>
-            </li> */}
             <li>
               <a href={`/account/cart`}>Giỏ hàng của tôi</a>
             </li>
             <li>
-              <a href={`/account/wishlist`}>sản phẩm yêu thích</a>
+              <a href={`/account/wishlist`}>Sản phẩm yêu thích</a>
             </li>
-            {/* <li>
-              <a href="#">Newsletter</a>
-            </li> */}
-            {/* <li>
-              <a href="#">My Account</a>
-            </li> */}
             <li>
               <a href="#">Thay đổi mật khẩu</a>
             </li>

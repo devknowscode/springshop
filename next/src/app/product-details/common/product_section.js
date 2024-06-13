@@ -721,7 +721,7 @@ const ProductSection = () => {
                 <Col lg="6" xs="12">
                   <div className="quick-view-img">
                     <Media
-                      src={`${selectedProduct.images[0].src}`}
+                      src={`${process.env.IMAGE_SERVER_URL + selectedProduct.images[0].src}`}
                       alt=""
                       className="img-fluid"
                     />

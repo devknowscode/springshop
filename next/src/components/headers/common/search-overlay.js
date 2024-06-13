@@ -1,4 +1,5 @@
-import React from "react";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
 import {
   Button,
   Col,
@@ -13,6 +14,19 @@ const closeSearch = () => {
   document.getElementById("search-overlay").style.display = "none";
 };
 const SearchOverlay = () => {
+  const router = useRouter();
+  const [keyword, setKeyword] = useState("")
+
+  const handleChange = (e) => {
+    setKeyword(e.target.value)
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    router.push(`/shop/left_sidebar?keyword=${keyword}`)
+    closeSearch()
+  }
+
   return (
     <div id="search-overlay" className="search-overlay">
       <div>
@@ -23,11 +37,13 @@ const SearchOverlay = () => {
           <Container>
             <Row>
               <Col xl="12">
-                <Form>
+                <Form onSubmit={handleSubmit}>
                   <FormGroup>
                     <Input
                       type="text"
                       className="form-control"
+                      value={keyword}
+                      onChange={handleChange}
                       id="exampleInputPassword1"
                       placeholder="Search a Product"
                     />

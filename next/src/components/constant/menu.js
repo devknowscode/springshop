@@ -21,7 +21,7 @@ export const MENUITEMS = [
   },
   {
     path: "/contact",
-    title: "Contact",
+    title: "contact",
     type: "link",
   },
 ];

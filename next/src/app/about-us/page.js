@@ -1,12 +1,12 @@
 "use client"
 
 import React from "react";
-import CommonLayout from "../../components/shop/common-layout";
+import CommonLayout from "@/components/shop/common-layout";
 import { Container, Row, Col, Media } from "reactstrap";
 import aboutus from "/public/assets/images/about/about_us.jpg";
 import Slider from "react-slick";
-import { Slider2, Slider4 } from "../../services/script";
-import ServiceLayout from "../../components/common/Service/service1.js";
+import { Slider2, Slider4 } from "@/services/script";
+import ServiceLayout from "@/components/common/Service/service1.js";
 
 const TeamData = [
   {

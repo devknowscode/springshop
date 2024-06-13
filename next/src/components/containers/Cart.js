@@ -52,9 +52,9 @@ const CartComponent = ({ icon, layout }) => {
                     <div className="media">
                       <a href={null}>
                         <Media
-                          alt=""
+                          alt={item.images[0].alt}
                           className="me-3"
-                          src={`${item.images[0].src}`}
+                          src={process.env.IMAGE_SERVER_URL + item.images[0].src}
                         />
                       </a>
                       <div className="media-body">
@@ -89,14 +89,10 @@ const CartComponent = ({ icon, layout }) => {
                   <Link
                     href="/account/cart"
                     className="btn btn-solid btn-xs view-cart">
-                    {/* <a > */}
                     view cart
-                    {/* </a> */}
                   </Link>
                   <Link href="/account/checkout" className="btn btn-solid btn-xs checkout">
-                    {/* <a > */}
                       checkout
-                      {/* </a> */}
                   </Link>
                 </div>
               </li>

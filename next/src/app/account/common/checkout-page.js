@@ -32,13 +32,8 @@ const CheckoutPage = () => {
 
   const onSubmit = (data) => {
     if (data !== "") {
-      alert("Chức mừng bạn đặt hàng thành công!");
-      // router.push({
-      //   pathname: "/page/order-success",
-      //   state: { items: cartItems, orderTotal: cartTotal, symbol: symbol },
-      // });
       clearCart();
-      router.push("/");
+      router.push("/order-success");
       
     } else {
       errors.showMessages();

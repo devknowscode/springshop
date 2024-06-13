@@ -58,8 +58,8 @@ const BlogSection = ({ type, sectionClass, title, inner, hrClass }) => {
           <Row>
             <Col md="12">
               <div className={title}>
-                <h4>our collection</h4>
-                <h2 className={inner}>special products</h2>
+                {/* <h4>our collection</h4> */}
+                <h2 className={inner}>blogs</h2>
                 {hrClass ? (
                   <hr role="tournament6"></hr>
                 ) : (

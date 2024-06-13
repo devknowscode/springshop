@@ -39,8 +39,8 @@ const WishlistPage = () => {
                     <tbody key={i}>
                       <tr>
                         <td>
-                          <a href="#">
-                            <img src={item.images[0].src} alt="" />
+                          <a href={`/product-details/${item.id}`}>
+                            <img src={process.env.IMAGE_SERVER_URL + item.images[0].src} alt="" />
                           </a>
                         </td>
                         <td>
@@ -68,7 +68,7 @@ const WishlistPage = () => {
                           <h2>${item.price}</h2>
                         </td>
                         <td>
-                          <p>{item.stock > 0 ? "In Stock" : "out of Stock"}</p>
+                          <p>{item.variants[0].stock > 0 ? "In Stock" : "out of Stock"}</p>
                         </td>
                         <td>
                           <a
