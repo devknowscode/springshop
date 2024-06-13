@@ -56,7 +56,7 @@ public class WebSecurityConfig {
                         .requestMatchers(HttpMethod.GET, String.format("%s/orders/**", apiPrefix))
                         .permitAll()
 
-                        .requestMatchers(HttpMethod.GET, "/test")
+                        .requestMatchers(HttpMethod.GET, String.format("%s/test/**", apiPrefix))
                         .permitAll()
 
                         .requestMatchers(HttpMethod.GET, "/uploads/**")

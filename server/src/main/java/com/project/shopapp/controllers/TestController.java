@@ -1,22 +1,20 @@
 package com.project.shopapp.controllers;
 
 import com.project.shopapp.auth.JwtService;
-import com.project.shopapp.utils.ImageUtils;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
-import java.util.Arrays;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/v1/api/test")
 @RequiredArgsConstructor
 public class TestController {
 
     private final JwtService jwtService;
 
-    @GetMapping("test")
+    @GetMapping
     public String test() {
         return "This is test from GET method";
     }
