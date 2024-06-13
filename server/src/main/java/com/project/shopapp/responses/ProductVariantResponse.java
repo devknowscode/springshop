@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Map;
+
 @Getter
 @Setter
 @Builder
@@ -17,4 +19,7 @@ public class ProductVariantResponse {
     private int stock;
     private boolean status;
 
+
+    @JsonProperty("attributes")
+    private Map<String, String> attributes;
 }

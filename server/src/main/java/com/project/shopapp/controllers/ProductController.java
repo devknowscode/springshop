@@ -10,23 +10,16 @@ import com.project.shopapp.services.ProductService;
 import com.project.shopapp.utils.BindingResultError;
 import com.project.shopapp.utils.ImageUtils;
 import lombok.RequiredArgsConstructor;
-import org.apache.tomcat.util.http.fileupload.IOUtils;
-import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
 @RestController
@@ -54,6 +47,7 @@ public class ProductController {
         ProductListResponse metadata = ProductListResponse.builder()
                 .products(productResponses.getContent())
                 .totalPages(productResponses.getTotalPages())
+                .totalProduct(productResponses.getTotalElements())
                 .build();
 
         var response = new BaseResponse<ProductListResponse>();
@@ -63,14 +57,14 @@ public class ProductController {
         return response;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{slug}")
     @ResponseStatus(HttpStatus.OK)
-    public BaseResponse<ProductResponse> getProduct(@PathVariable Long id)
+    public BaseResponse<ProductResponse> getProduct(@PathVariable String slug)
             throws Exception {
         var response = new BaseResponse<ProductResponse>();
         response.setStatus(HttpStatus.CREATED.value());
         response.setMessage("Product created successfully!");
-        response.setMetadata(service.getProductById(id));
+        response.setMetadata(service.getProductBySlug(slug));
         return response;
     }
 

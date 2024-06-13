@@ -1,6 +1,5 @@
 package com.project.shopapp.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -34,13 +33,11 @@ public class Product extends BaseEntity {
 
     @Column(nullable = false)
     private Boolean isPublished = false;
+
     private String slug;
 
     @Column(nullable = false)
     private Boolean isDeleted = false;
-
-    @Column(name = "new")
-    private boolean isNew = true;
 
     @Column(name = "sale")
     private boolean isSale = false;

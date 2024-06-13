@@ -1,5 +1,6 @@
 package com.project.shopapp.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,6 +26,7 @@ public class VariantValue {
     private Variant variant;
 
     @OneToMany(mappedBy = "variantValue", cascade = CascadeType.ALL)
+//    @JsonBackReference
     private Set<ProductDetail> productDetails;
 }
 

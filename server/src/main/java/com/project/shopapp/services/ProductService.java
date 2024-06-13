@@ -2,7 +2,6 @@ package com.project.shopapp.services;
 
 
 import com.project.shopapp.dtos.ProductDto;
-import com.project.shopapp.exceptions.custom.DataNotFoundException;
 import com.project.shopapp.responses.ProductResponse;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
@@ -19,7 +18,7 @@ public interface ProductService {
     ProductResponse createProduct(ProductDto productDto, List<MultipartFile> files)
             throws Exception;
 
-    ProductResponse getProductById(Long id) throws Exception;
+    ProductResponse getProductBySlug(String slug) throws Exception;
 
     ProductResponse updateProduct(Long id, ProductDto productDto);
 }

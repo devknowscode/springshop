@@ -12,7 +12,6 @@ import com.project.shopapp.utils.ImageUtils;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.BadRequestException;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -21,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,7 +32,6 @@ public class ProductServiceImpl implements ProductService {
     private final VariantRepository variantRepository;
     private final VariantValueRepository variantValueRepository;
     private final ProductImageRepository productImageRepository;
-    private final ModelMapper modelMapper;
     private final ProductVariantRepository productVariantRepository;
     private final ProductDetailRepository productDetailRepository;
 
@@ -44,50 +43,22 @@ public class ProductServiceImpl implements ProductService {
     ) {
         Page<Product> productsPage = repository.searchProducts(categoryId, keyword, pageRequest);
 
-        return productsPage.map(product -> {
-            ProductResponse productResponse = new ProductResponse();
-            productResponse.setTitle(product.getName());
-            productResponse.setDescription(product.getDescription());
-            productResponse.setPrice(product.getProductVariants().get(0).getPrice());
-            productResponse.setNew(product.isNew());
-            productResponse.setSale(product.isSale());
-            productResponse.setDiscount(product.getDiscount());
-            productResponse.setVariants(product.getProductVariants()
-                    .stream()
-                    .map(variant ->
-                            ProductVariantResponse.builder()
-                                    .productVariantName(variant.getProductVariantName())
-                                    .sku(variant.getSku())
-                                    .price(variant.getPrice())
-                                    .stock(variant.getStock())
-                                    .status(variant.isStatus())
-                                    .build())
-                    .collect(Collectors.toList()));
-            productResponse.setCategoryId(product.getCategory().getId());
-            productResponse.setImages(product.getProductImages()
-                    .stream()
-                    .map(image ->
-                            ProductImageResponse.builder()
-                                    .src(image.getSrc())
-                                    .alt(image.getAlt())
-                                    .build())
-                    .collect(Collectors.toList()));
-
-            return productResponse;
-        });
+        return productsPage.map(this::convertProductResponse);
     }
 
     @Override
-    public ProductResponse getProductById(Long id)
+    public ProductResponse getProductBySlug(String slug)
             throws Exception {
-        Product existingProduct = repository.findById(id)
+        Product existingProduct = repository.findProductBySlug(slug)
                 .orElseThrow(() ->
                         new DataNotFoundException(
-                                "Cannot find product with id: " + id
+                                "Cannot find product with slug: " + slug
                         )
                 );
-        return modelMapper.map(existingProduct, ProductResponse.class);
+
+        return convertProductResponse(existingProduct);
     }
+
 
     @Override
     @Transactional
@@ -205,7 +176,7 @@ public class ProductServiceImpl implements ProductService {
         response.setTitle(newProduct.getName());
         response.setDescription(newProduct.getDescription());
         response.setPrice(Double.parseDouble(productDto.getProductVariants().get(0).get("price")));
-        response.setNew(newProduct.isNew());
+        response.setSlug(newProduct.getSlug());
         response.setSale(newProduct.isSale());
         response.setDiscount(newProduct.getDiscount());
         response.setVariants(productVariantResponseList);
@@ -220,10 +191,54 @@ public class ProductServiceImpl implements ProductService {
         return null;
     }
 
-    private String generateSlug(String name) {
-        return name
-                .replace(" ", "-")
-                .toLowerCase();
+    private ProductResponse convertProductResponse(Product existingProduct) {
+        ProductResponse productResponse = new ProductResponse();
+        productResponse.setTitle(existingProduct.getName());
+        productResponse.setDescription(existingProduct.getDescription());
+        productResponse.setPrice(existingProduct.getProductVariants().get(0).getPrice());
+        productResponse.setSlug(existingProduct.getSlug());
+        productResponse.setSale(existingProduct.isSale());
+        productResponse.setDiscount(existingProduct.getDiscount());
+        productResponse.setVariants(existingProduct.getProductVariants()
+                .stream()
+                .map(variant ->
+                        ProductVariantResponse.builder()
+                                .productVariantName(variant.getProductVariantName())
+                                .sku(variant.getSku())
+                                .price(variant.getPrice())
+                                .stock(variant.getStock())
+                                .status(variant.isStatus())
+                                .attributes(variant.getProductDetails()
+                                        .stream()
+                                        .collect(Collectors.toMap(
+                                                productDetail -> productDetail.getVariantValue().getVariant().getVariant(),
+                                                productDetail -> productDetail.getVariantValue().getValue()
+                                        )))
+                                .build())
+                .collect(Collectors.toList()));
+        productResponse.setCategoryId(existingProduct.getCategory().getId());
+        productResponse.setImages(existingProduct.getProductImages()
+                .stream()
+                .map(image ->
+                        ProductImageResponse.builder()
+                                .src(image.getSrc())
+                                .alt(image.getAlt())
+                                .build())
+                .collect(Collectors.toList()));
+
+        return productResponse;
+    }
+
+    private String generateSlug(String productName) {
+        String slugifyName = productName
+                .replaceAll("\\s+", " ") // Replace multiple spaces with a single space
+                .replaceAll("-+", "-") // Replace multiple hyphens with a single hyphen
+                .replaceAll("^-+|-+$", "");   // Remove leading and trailing hyphens
+
+        String uniqueId = UUID.randomUUID().toString()
+                .replaceAll("-", ".");
+
+        return slugifyName + "-i." + uniqueId;
     }
 
     private String generateProductVariantName(Map<String, String> variantAttributes) {
