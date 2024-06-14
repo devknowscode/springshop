@@ -231,7 +231,9 @@ public class ProductServiceImpl implements ProductService {
 
     private String generateSlug(String productName) {
         String slugifyName = productName
+                .replaceAll("[$&+,:;=?@#|'<>.^*()%!-]", "")
                 .replaceAll("\\s+", " ") // Replace multiple spaces with a single space
+                .replaceAll(" ", "-")
                 .replaceAll("-+", "-") // Replace multiple hyphens with a single hyphen
                 .replaceAll("^-+|-+$", "");   // Remove leading and trailing hyphens
 
