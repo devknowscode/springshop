@@ -191,15 +191,16 @@ public class ProductServiceImpl implements ProductService {
         return null;
     }
 
-    private ProductResponse convertProductResponse(Product existingProduct) {
+    private ProductResponse convertProductResponse(Product product) {
         ProductResponse productResponse = new ProductResponse();
-        productResponse.setTitle(existingProduct.getName());
-        productResponse.setDescription(existingProduct.getDescription());
-        productResponse.setPrice(existingProduct.getProductVariants().get(0).getPrice());
-        productResponse.setSlug(existingProduct.getSlug());
-        productResponse.setSale(existingProduct.isSale());
-        productResponse.setDiscount(existingProduct.getDiscount());
-        productResponse.setVariants(existingProduct.getProductVariants()
+        productResponse.setId(product.getId());
+        productResponse.setTitle(product.getName());
+        productResponse.setDescription(product.getDescription());
+        productResponse.setPrice(product.getProductVariants().get(0).getPrice());
+        productResponse.setSlug(product.getSlug());
+        productResponse.setSale(product.isSale());
+        productResponse.setDiscount(product.getDiscount());
+        productResponse.setVariants(product.getProductVariants()
                 .stream()
                 .map(variant ->
                         ProductVariantResponse.builder()
@@ -216,8 +217,8 @@ public class ProductServiceImpl implements ProductService {
                                         )))
                                 .build())
                 .collect(Collectors.toList()));
-        productResponse.setCategoryId(existingProduct.getCategory().getId());
-        productResponse.setImages(existingProduct.getProductImages()
+        productResponse.setCategoryId(product.getCategory().getId());
+        productResponse.setImages(product.getProductImages()
                 .stream()
                 .map(image ->
                         ProductImageResponse.builder()

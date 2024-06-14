@@ -8,8 +8,6 @@ import MasterSocial from "./master_social";
 import convertCurrencyFormat from "@/utils/currencyFormat";
 
 const DetailsWithPrice = ({ item, stickyClass }) => {
-  const CurContect = useContext(CurrencyContext);
-  const symbol = CurContect.state.symbol;
   const product = item;
   const context = useContext(CartContext);
   const stock = context.stock;
@@ -140,7 +138,7 @@ const DetailsWithPrice = ({ item, stickyClass }) => {
               </section>
             ))}
           </div>
-        </div>
+        </div>*+
 
         <div className="product-description border-product">
           <h6 className="product-title">quantity</h6>
@@ -194,14 +192,14 @@ const DetailsWithPrice = ({ item, stickyClass }) => {
           <a
             href={null}
             className="btn btn-solid"
-            onClick={() => context.addToCart(product, quantity)}
+            onClick={() => context.addToCart(product, variantSelected, quantity)}
           >
             add to cart
           </a>
           <Link
             href={`/account/checkout`}
             className="btn btn-solid"
-            onClick={() => context.addToCart(product, quantity)}
+            onClick={() => context.addToCart(product, variantSelected, quantity)}
           >
             buy now
           </Link>

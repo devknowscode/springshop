@@ -10,6 +10,8 @@ import java.util.List;
 @Setter
 public class ProductResponse {
 
+    private Long id;
+
     private String title;
 
     private String description;

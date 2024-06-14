@@ -1,18 +1,16 @@
 import React, { useState, useContext } from "react";
 import Link from "next/link";
 import CartContext from "../../../helpers/cart";
-import { Container, Row, Col, Media, Input } from "reactstrap";
-import { CurrencyContext } from "../../../helpers/Currency/CurrencyContext";
+import { Container, Row, Col, Media } from "reactstrap";
 import cart from "../../../../public/assets/images/icon-empty-cart.png";
+import convertCurrencyFormat from "@/utils/currencyFormat";
 
 const CartPage = () => {
   const context = useContext(CartContext);
   const cartItems = context.state;
-  const curContext = useContext(CurrencyContext);
-  const symbol = curContext.state.symbol;
   const total = context.cartTotal;
   const removeFromCart = context.removeFromCart;
-  const [quantity, setQty] = useState(1);
+  // const [quantity, setQty] = useState(1);
   const [quantityError, setQuantityError] = useState(false);
   const updateQty = context.updateQty;
 
@@ -22,25 +20,6 @@ const CartPage = () => {
       updateQty(item, quantity);
     } else {
       setQuantityError(true);
-    }
-  };
-
-  const changeQty = (e) => {
-    setQuantity(parseInt(e.target.value));
-  };
-
-  const minusQty = () => {
-    if (quantity > 1) {
-      setStock("InStock");
-      setQty(quantity - 1);
-    }
-  };
-
-  const plusQty = (product) => {
-    if (product.stock >= quantity) {
-      setQty(quantity + 1);
-    } else {
-      setStock("Out of Stock !");
     }
   };
 
@@ -71,8 +50,10 @@ const CartPage = () => {
                               <Media
                                 src={
                                   item.images
-                                    ? process.env.IMAGE_SERVER_URL + item.images[0].src
-                                    : process.env.IMAGE_SERVER_URL + item.images[0].src
+                                    ? process.env.IMAGE_SERVER_URL +
+                                      item.images[0].src
+                                    : process.env.IMAGE_SERVER_URL +
+                                      item.images[0].src
                                 }
                                 alt=""
                               />
@@ -104,9 +85,10 @@ const CartPage = () => {
                               </div>
                               <div className="col-xs-3">
                                 <h2 className="td-color">
-                                  {symbol}
-                                  {item.price -
-                                    (item.price * item.discount) / 100}
+                                  {convertCurrencyFormat(
+                                    item.price -
+                                      (item.price * item.discount) / 100
+                                  )}
                                 </h2>
                               </div>
                               <div className="col-xs-3">
@@ -114,7 +96,8 @@ const CartPage = () => {
                                   <a href="#" className="icon">
                                     <i
                                       className="fa fa-times"
-                                      onClick={() => removeFromCart(item)}></i>
+                                      onClick={() => removeFromCart(item)}
+                                    ></i>
                                   </a>
                                 </h2>
                               </div>
@@ -122,8 +105,9 @@ const CartPage = () => {
                           </td>
                           <td>
                             <h2>
-                              {symbol}
-                              {item.price - (item.price * item.discount) / 100}
+                              {convertCurrencyFormat(
+                                item.price - (item.price * item.discount) / 100
+                              )}
                             </h2>
                           </td>
                           <td>
@@ -148,12 +132,12 @@ const CartPage = () => {
                           <td>
                             <i
                               className="fa fa-times"
-                              onClick={() => removeFromCart(item)}></i>
+                              onClick={() => removeFromCart(item)}
+                            ></i>
                           </td>
                           <td>
                             <h2 className="td-color">
-                              {symbol}
-                              {item.total.toFixed(2)}
+                              {convertCurrencyFormat(item.total)}
                             </h2>
                           </td>
                         </tr>
@@ -166,9 +150,7 @@ const CartPage = () => {
                     <tr>
                       <td>total price :</td>
                       <td>
-                        <h2>
-                          {symbol} {total.toFixed(2)}
-                        </h2>
+                        <h2>{convertCurrencyFormat(total)}</h2>
                       </td>
                     </tr>
                   </tfoot>

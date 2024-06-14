@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Context from "./index";
 import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 const getLocalCartItems = () => {
   try {
@@ -24,7 +25,7 @@ const CartProvider = (props) => {
   useEffect(() => {
     const initialTotal = 0;
     const total = cartItems.reduce(
-      (total, currentItem) => total + currentItem.total, 
+      (total, currentItem) => total + currentItem.total,
       initialTotal
     );
     setCartTotal(total);
@@ -32,10 +33,18 @@ const CartProvider = (props) => {
     localStorage.setItem("cartList", JSON.stringify(cartItems));
   }, [cartItems]);
 
+  const router = useRouter()
+
   // Add Product To Cart
-  const addToCart = (item, quantity) => {
+  const addToCart = (item, variant, quantity) => {
+    if (!localStorage.getItem("userToken")) {
+      router.push("/account/login")
+      return;
+    }
     toast.success("Product Added Successfully !");
-    const index = cartItems.findIndex((itm) => itm.id === item.id);
+    const index = cartItems.findIndex(
+      (itm) => itm.id === item.id && itm.variants.sku === item.variants.sku
+    );
 
     if (index !== -1) {
       cartItems[index] = {
