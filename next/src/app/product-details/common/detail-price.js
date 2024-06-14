@@ -5,6 +5,7 @@ import { CurrencyContext } from "@/helpers/Currency/CurrencyContext";
 import CartContext from "@/helpers/cart";
 import CountdownComponent from "@/components/common/widgets/countdownComponent";
 import MasterSocial from "./master_social";
+import convertCurrencyFormat from "@/utils/currencyFormat";
 
 const DetailsWithPrice = ({ item, stickyClass }) => {
   const CurContect = useContext(CurrencyContext);
@@ -18,8 +19,11 @@ const DetailsWithPrice = ({ item, stickyClass }) => {
   const setQuantity = context.setQuantity;
   const [variantSelected, setVariantSelected] = useState({});
   const [attributesSelected, setAttributesSelected] = useState({});
-  const totalStock = product.variants?.reduce((stock, currentVariant) => stock + currentVariant.stock, 0);
-  let minPrice = 0;
+  const totalStock = product.variants?.reduce(
+    (stock, currentVariant) => stock + currentVariant.stock,
+    0
+  );
+  let minPrice = 10000000000;
   let maxPrice = 0;
 
   const changeQty = (e) => {
@@ -40,8 +44,6 @@ const DetailsWithPrice = ({ item, stickyClass }) => {
     const attributes = vari.attributes;
     data.push(attributes);
   });
-
-  console.log({product})
 
   const result = {};
 
@@ -83,28 +85,32 @@ const DetailsWithPrice = ({ item, stickyClass }) => {
     <>
       <div className={`product-right ${stickyClass}`}>
         <h2>{product.title}</h2>
-        {!variantSelected 
-        ? (
-          { minPrice } - { maxPrice }
+        {!variantSelected ? (
+          <h3>
+            {minPrice === maxPrice
+              ? convertCurrencyFormat(minPrice)
+              : convertCurrencyFormat(minPrice) +
+                " - " +
+                convertCurrencyFormat(maxPrice)}
+          </h3>
         ) : product.sale ? (
           <>
             <h4>
-              <del>
-                {symbol}
-                {product.price}
-              </del>
+              <del>{convertCurrencyFormat(product.price)}</del>
               <span>{product.discount}% off</span>
             </h4>
             <h3>
-              {symbol}
-              {product.price - (product.price * product.discount) / 100}
+              {convertCurrencyFormat(
+                product.price - (product.price * product.discount) / 100
+              )}
             </h3>
           </>
         ) : (
           <h3>
-            {symbol}
-            {variantSelected?.price -
-              (variantSelected?.price * product.discount) / 100}
+            {convertCurrencyFormat(
+              variantSelected?.price -
+                (variantSelected?.price * product.discount) / 100
+            )}
           </h3>
         )}
         <div className="product-variant">

@@ -9919,8 +9919,8 @@ footer {
     line-height: 1.5em;
   }
   .product-title {
+    text-transform: none;
     color: $dark-font;
-    text-transform: capitalize;
     font-weight: 700;
     margin-bottom: 0;
     span {
@@ -9942,7 +9942,7 @@ footer {
     }
   }
   h2 {
-    text-transform: uppercase;
+    text-transform: none;
     margin-bottom: 15px;
     font-size: 25px;
     line-height: 1.2em;

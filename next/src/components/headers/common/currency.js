@@ -5,39 +5,19 @@ import i18next from "../../constant/i18n";
 import { CurrencyContext } from "../../../helpers/Currency/CurrencyContext";
 
 const Currency = ({ icon }) => {
-  var data = {
-    "getCurrency": [
-          // {
-          //   "currency": "USD",
-          //   "name": "doller",
-          //   "symbol": "$",
-          //   "value": 1
-          // },
-          // {
-          //   "currency": "IND",
-          //   "name": "rupees",
-          //   "symbol": "₹",
-          //   "value": 60
-          // },
-          // {
-          //   "currency": "EUR",
-          //   "name": "euro",
-          //   "symbol": "€",
-          //   "value": 52
-          // },
-          // {
-          //   "currency": "GBP",
-          //   "name": "pound",
-          //   "symbol": "£",
-          //   "value": 62
-          // }
-        ]
-    };
+  // var data = {
+  //   "getCurrency": [
+  //         {
+  //           "currency": "VND",
+  //           "name": "dong",
+  //           "symbol": "đ",
+  //           "value": 1
+  //         },
+  //       ]
+  //   };
 
   const Context = useContext(CurrencyContext);
   const selectedCurrency = Context.currencyContext.selectedCurrency;
-
-  console.log("data", data);
 
   const changeLanguage = (lng) => {
     i18next.changeLanguage(lng);

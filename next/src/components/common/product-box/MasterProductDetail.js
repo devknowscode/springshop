@@ -1,4 +1,5 @@
 import React from "react";
+import convertCurrencyFormat from "@/utils/currencyFormat";
 
 const MasterProductDetail = ({
   product,
@@ -22,22 +23,18 @@ const MasterProductDetail = ({
         <h4>
           {product.sale ? (
             <>
-              {currency.symbol}
               {(
-                (product.price - (product.price * product.discount) / 100) *
-                currency.value
-              ).toFixed(2)}
+                convertCurrencyFormat((product.price - (product.price * product.discount) / 100) * currency.value)
+              )}
               <del>
                 <span className="money">
-                  {currency.symbol}
-                  {(product.price * currency.value).toFixed(2)}
+                  {convertCurrencyFormat(product.price * currency.value)}
                 </span>
               </del>
             </>
           ) : (
             <span className="money">
-              {currency.symbol}
-              {(product.price * currency.value).toFixed(2)}
+              {convertCurrencyFormat(product.price * currency.value)}
             </span>
           )}
         </h4>
