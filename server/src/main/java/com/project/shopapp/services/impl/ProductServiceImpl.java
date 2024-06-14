@@ -127,7 +127,7 @@ public class ProductServiceImpl implements ProductService {
             // Create ProductVariant
             ProductVariant productVariant = new ProductVariant();
             productVariant.setProductVariantName(productVariantName);
-            productVariant.setSku(variantAttribute.get("sku"));
+            productVariant.setSku(generateSku(newProduct.getName(), newProduct.getCategory().getName()));
             productVariant.setPrice(Double.parseDouble(variantAttribute.get("price")));
             productVariant.setStock(Integer.parseInt(variantAttribute.get("stock")));
             productVariant.setStatus(productVariant.getStock() > 0);
@@ -248,5 +248,17 @@ public class ProductServiceImpl implements ProductService {
                 .filter(entry -> !"sku".equalsIgnoreCase(entry.getKey()) && !"stock".equalsIgnoreCase(entry.getKey()) && !"price".equalsIgnoreCase(entry.getKey()))
                 .map(Map.Entry::getValue)
                 .collect(Collectors.joining("-"));
+    }
+
+    public static String generateSku(String productName, String category) {
+        // Convert attributes to uppercase to standardize the SKU format
+        String namePart = productName.replaceAll("\\s+", "").substring(0, 3).toUpperCase();
+        String categoryPart = category.replaceAll("\\s+", "").substring(0, 3).toUpperCase();
+
+        // Generate a short UUID for uniqueness
+        String uniquePart = UUID.randomUUID().toString().substring(0, 8).toUpperCase();
+
+        // Combine all parts to form the SKU
+        return namePart + "-" + categoryPart + "-" + uniquePart;
     }
 }
