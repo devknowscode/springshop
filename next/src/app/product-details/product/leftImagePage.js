@@ -54,10 +54,6 @@ const LeftImagePage = ({ slug }) => {
     });
   }, [data]);
 
-  const changeColorVar = (img_id) => {
-    slider2.current.slickGoTo(img_id);
-  };
-
   const { nav1, nav2 } = state;
 
   return (
@@ -97,7 +93,7 @@ const LeftImagePage = ({ slug }) => {
                 </Slider>
               </Col>
               <Col lg="6" className="rtl-text">
-                <DetailsWithPrice symbol={symbol} item={data} changeColorVar={changeColorVar} navOne={state.nav1} addToCartClicked={addToCart} />
+                <DetailsWithPrice symbol={symbol} item={data} navOne={state.nav1} addToCartClicked={addToCart} />
               </Col>
             </Row>
           )}

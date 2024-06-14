@@ -69,10 +69,6 @@ const BundleProductPage = () => {
     });
   }, [data]);
 
-  const changeColorVar = (img_id) => {
-    slider2.current.slickGoTo(img_id);
-  };
-
   const { nav1, nav2 } = state;
 
   return (
@@ -123,7 +119,6 @@ const BundleProductPage = () => {
               </Col>
               <Col lg="6" className="rtl-text">
                 <DetailsWithPrice
-                  changeColorVar={changeColorVar}
                   item={data.product}
                 />
                 <div className="product-right">

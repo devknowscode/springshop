@@ -24,7 +24,7 @@ const CartProvider = (props) => {
   useEffect(() => {
     const initialTotal = 0;
     const total = cartItems.reduce(
-      (prevTotal, currentItem) => prevTotal + currentItem.total, 
+      (total, currentItem) => total + currentItem.total, 
       initialTotal
     );
     setCartTotal(total);
@@ -67,7 +67,7 @@ const CartProvider = (props) => {
   };
 
   const plusQty = (item) => {
-    if (item.stock >= quantity) {
+    if (quantity < item.stock) {
       setQuantity(quantity + 1);
     } else {
       setStock("Out of Stock !");

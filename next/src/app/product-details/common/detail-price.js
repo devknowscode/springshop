@@ -1,13 +1,12 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Link from "next/link";
-import sizeChart from "/public/assets/images/size-chart.jpg";
 import { Input } from "reactstrap";
 import { CurrencyContext } from "@/helpers/Currency/CurrencyContext";
 import CartContext from "@/helpers/cart";
 import CountdownComponent from "@/components/common/widgets/countdownComponent";
 import MasterSocial from "./master_social";
 
-const DetailsWithPrice = ({ item, stickyClass, changeColorVar }) => {
+const DetailsWithPrice = ({ item, stickyClass }) => {
   const CurContect = useContext(CurrencyContext);
   const symbol = CurContect.state.symbol;
   const product = item;
@@ -19,6 +18,9 @@ const DetailsWithPrice = ({ item, stickyClass, changeColorVar }) => {
   const setQuantity = context.setQuantity;
   const [variantSelected, setVariantSelected] = useState({});
   const [attributesSelected, setAttributesSelected] = useState({});
+  const totalStock = product.variants?.reduce((stock, currentVariant) => stock + currentVariant.stock, 0);
+  let minPrice = 0;
+  let maxPrice = 0;
 
   const changeQty = (e) => {
     setQuantity(parseInt(e.target.value));
@@ -26,9 +28,21 @@ const DetailsWithPrice = ({ item, stickyClass, changeColorVar }) => {
 
   let data = [];
   product.variants?.forEach((vari) => {
+    // set min and max price of product
+    if (minPrice > vari.price) {
+      minPrice = vari.price;
+    }
+    if (maxPrice < vari.price) {
+      maxPrice = vari.price;
+    }
+
+    // get all variants of product
     const attributes = vari.attributes;
     data.push(attributes);
   });
+
+  console.log({product})
+
   const result = {};
 
   // Iterate over each object in the data array
@@ -53,16 +67,26 @@ const DetailsWithPrice = ({ item, stickyClass, changeColorVar }) => {
       ...attributesSelected,
       [key]: value,
     });
-    Object.entries(attributesSelected).forEach(attr => {
-      console.log(attr)
-    })
   };
+
+  useEffect(() => {
+    setVariantSelected(
+      product.variants?.find((variant) => {
+        return Object.keys(variant.attributes).every((key) => {
+          return variant.attributes[key] === attributesSelected[key];
+        });
+      })
+    );
+  }, [attributesSelected]);
 
   return (
     <>
       <div className={`product-right ${stickyClass}`}>
-        <h2> {product.title} </h2>
-        {product.sale ? (
+        <h2>{product.title}</h2>
+        {!variantSelected 
+        ? (
+          { minPrice } - { maxPrice }
+        ) : product.sale ? (
           <>
             <h4>
               <del>
@@ -79,7 +103,8 @@ const DetailsWithPrice = ({ item, stickyClass, changeColorVar }) => {
         ) : (
           <h3>
             {symbol}
-            {product.price - (product.price * product.discount) / 100}
+            {variantSelected?.price -
+              (variantSelected?.price * product.discount) / 100}
           </h3>
         )}
         <div className="product-variant">
@@ -91,9 +116,10 @@ const DetailsWithPrice = ({ item, stickyClass, changeColorVar }) => {
                   {values.map((value) => (
                     <button
                       className={
-                        (attributesSelected.hasOwnProperty(key) && attributesSelected[key] === value) 
-                        ? "selection-box-selected"
-                        : "selection-box-unselected"
+                        attributesSelected.hasOwnProperty(key) &&
+                        attributesSelected[key] === value
+                          ? "selection-box-selected"
+                          : "selection-box-unselected"
                       }
                       aria-label="Mini 4/5"
                       aria-disabled="false"
@@ -111,7 +137,6 @@ const DetailsWithPrice = ({ item, stickyClass, changeColorVar }) => {
         </div>
 
         <div className="product-description border-product">
-          <span className="instock-cls">{stock}</span>
           <h6 className="product-title">quantity</h6>
           <div className="qty-box">
             <div className="input-group">
@@ -137,7 +162,13 @@ const DetailsWithPrice = ({ item, stickyClass, changeColorVar }) => {
                 <button
                   type="button"
                   className="btn quantity-right-plus"
-                  onClick={() => plusQty(product)}
+                  onClick={() =>
+                    variantSelected
+                      ? plusQty(variantSelected)
+                      : plusQty({
+                          stock: totalStock,
+                        })
+                  }
                   data-type="plus"
                   data-field=""
                 >
@@ -145,8 +176,13 @@ const DetailsWithPrice = ({ item, stickyClass, changeColorVar }) => {
                 </button>
               </span>
             </div>
-            <div className="pleft">17 products available</div>
+            <div className="pleft">
+              {variantSelected ? variantSelected?.stock : totalStock} products
+              available
+            </div>
           </div>
+          {/* TODO: Add css to this */}
+          <div>{stock}</div>
         </div>
         <div className="product-buttons">
           <a
