@@ -65,19 +65,17 @@ const ProductList = ({ colClass, layoutList, openSidebar, noSidebar }) => {
   const handlePagination = (e, p) => {
     setPage(p)
     setIsLoading(true);
-    setTimeout(() => {
-      axios
-        .get(
-          `http://localhost:8088/v1/api/products?page=${p - 1}&limit=${limit}`
-        )
-        .then(({ data }) => {
-          setIsLoading(false);
-          setData(data.metadata);
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    }, 1000);
+    axios
+      .get(
+        `http://localhost:8088/v1/api/products?page=${p - 1}&limit=${limit}&keyword=${keyword}`
+      )
+      .then(({ data }) => {
+        setIsLoading(false);
+        setData(data.metadata);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
 
   const removeBrand = (val) => {
