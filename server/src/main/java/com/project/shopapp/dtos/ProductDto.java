@@ -23,11 +23,6 @@ public class ProductDto {
     @NotNull(message = "Product's description cannot be null")
     private String description;
 
-    @DecimalMin(value = "0.0", inclusive = false)
-    @DecimalMax(value = "1200.0")
-    @Digits(integer = 4, fraction = 2)
-    private Double price;
-
     @JsonProperty("product_variants")
     private List<Map<String, String>> productVariants;
 
