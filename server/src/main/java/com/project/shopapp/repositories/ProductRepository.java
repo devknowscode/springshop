@@ -12,11 +12,12 @@ import java.util.Optional;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
-    @Query("SELECT p FROM Product p WHERE " +
-            "(:categoryId IS NULL OR :categoryId = 0 OR p.category.id = :categoryId) " +
+    @Query("SELECT p FROM Product p " +
+            "INNER JOIN p.category c " +
+            "WHERE (:categoryName IS NULL OR :categoryName = '' OR c.name = :categoryName) " +
             "AND (:keyword IS NULL OR :keyword = '' OR p.name LIKE %:keyword% OR p.description LIKE %:keyword%)")
     Page<Product> searchProducts(
-            @Param("categoryId") Long categoryId,
+            @Param("categoryName") String categoryName,
             @Param("keyword") String keyword,
             Pageable pageable
     );

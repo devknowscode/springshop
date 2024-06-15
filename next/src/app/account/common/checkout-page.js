@@ -7,15 +7,13 @@ import paypal from "/public/assets/images/paypal.png";
 import { PayPalScriptProvider, BraintreePayPalButtons, PayPalButtons } from "@paypal/react-paypal-js";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import { CurrencyContext } from "../../../helpers/Currency/CurrencyContext";
+import convertCurrencyFormat from "@/utils/currencyFormat";
 
 const CheckoutPage = () => {
   const cartContext = useContext(CartContext);
   const cartItems = cartContext.state;
   const cartTotal = cartContext.cartTotal;
-  const curContext = useContext(CurrencyContext);
   const clearCart = cartContext.clearCart;
-  const symbol = curContext.state.symbol;
   const [obj, setObj] = useState({});
   const [payment, setPayment] = useState("cod");
   
@@ -45,7 +43,6 @@ const CheckoutPage = () => {
     setObj(obj);
   };
 
-  console.log("cartItems", cartItems);
   return (
     <section className="section-b-space">
       <Container>
@@ -63,11 +60,6 @@ const CheckoutPage = () => {
                       <input type="text" className={`${errors.fullname ? "error_border" : ""}`} name="first_name" {...register("fullname", { required: true })} />
                       <span className="error-message">{errors.fullname && "First name is required"}</span>
                     </div>
-                    {/* <div className="form-group col-md-6 col-sm-6 col-xs-12">
-                      <div className="field-label">Last Name</div>
-                      <input type="text" className={`${errors.last_name ? "error_border" : ""}`} name="last_name" {...register("last_name", { required: true })} />
-                      <span className="error-message">{errors.last_name && "Last name is required"}</span>
-                    </div> */}
                     <div className="form-group col-md-6 col-sm-6 col-xs-12">
                       <div className="field-label">Điện thoại</div>
                       <input type="text" name="phone" className={`${errors.phone ? "error_border" : ""}`} {...register("phone", { pattern: /\d+/ })} />
@@ -113,31 +105,13 @@ const CheckoutPage = () => {
                     <div className="form-group col-md-12 col-sm-12 col-xs-12">
                       <div className="field-label">Mã ưu đãi</div>
                       <input
-                        //className="form-control"
                         type="text"
                         className={`${errors.city ? "error_border" : ""}`}
                         name="city"
-                        // ss
                         onChange={setStateFromInput}
                       />
                       <span className="error-message">{errors.city && "select one city"}</span>
                     </div>
-                   
-                    {/* <div className="form-group col-md-12 col-sm-6 col-xs-12">
-                      <div className="field-label">Mã ưu đãi</div>
-                      <input
-                        //className="form-control"
-                        type="text"
-                        name="pincode"
-                        className={`${errors.pincode ? "error_border" : ""}`}
-                        {...register("pincode", { pattern: /\d+/ })}
-                      />
-                      <span className="error-message">{errors.pincode && "Required integer"}</span>
-                    </div> */}
-                    {/* <div className="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                      <input type="checkbox" name="create_account" id="account-option" />
-                      &ensp; <label htmlFor="account-option">Create An Account?</label>
-                    </div> */}
                   </div>
                 </Col>
                 <Col lg="6" sm="12" xs="12">
@@ -154,8 +128,7 @@ const CheckoutPage = () => {
                             <li key={index}>
                               {item.title} × {item.qty}{" "}
                               <span>
-                                {symbol}
-                                {item.total}
+                                {convertCurrencyFormat(item.total)}
                               </span>
                             </li>
                           ))}
@@ -164,8 +137,7 @@ const CheckoutPage = () => {
                           <li>
                             Tổng giá trị{" "}
                             <span className="count">
-                              {symbol}
-                              {cartTotal}
+                              {convertCurrencyFormat(cartTotal)}
                             </span>
                           </li>
                           <li>
@@ -175,10 +147,6 @@ const CheckoutPage = () => {
                                 <input type="checkbox" name="free-shipping" id="free-shipping" />
                                 <label htmlFor="free-shipping">Miễn phí giao hàng</label>
                               </div>
-                              {/* <div className="shopping-option">
-                                <input type="checkbox" name="local-pickup" id="local-pickup" />
-                                <label htmlFor="local-pickup">Chọn địa chỉ giao hàng</label>
-                              </div> */}
                             </div>
                           </li>
                         </ul>
@@ -186,8 +154,7 @@ const CheckoutPage = () => {
                           <li>
                            Tổng đơn hàng{" "}
                             <span className="count">
-                              {symbol}
-                              {cartTotal}
+                              {convertCurrencyFormat(cartTotal)}
                             </span>
                           </li>
                         </ul>

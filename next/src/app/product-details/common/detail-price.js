@@ -77,6 +77,7 @@ const DetailsWithPrice = ({ item, stickyClass }) => {
         });
       })
     );
+    setQuantity(1);
   }, [attributesSelected]);
 
   return (
@@ -138,8 +139,7 @@ const DetailsWithPrice = ({ item, stickyClass }) => {
               </section>
             ))}
           </div>
-        </div>*+
-
+        </div>
         <div className="product-description border-product">
           <h6 className="product-title">quantity</h6>
           <div className="qty-box">
@@ -181,8 +181,8 @@ const DetailsWithPrice = ({ item, stickyClass }) => {
               </span>
             </div>
             <div className="pleft">
-              {variantSelected ? variantSelected?.stock : totalStock} products
-              available
+              {variantSelected ? variantSelected?.stock : totalStock} sản phẩm
+              có sẵn
             </div>
           </div>
           {/* TODO: Add css to this */}
@@ -192,14 +192,18 @@ const DetailsWithPrice = ({ item, stickyClass }) => {
           <a
             href={null}
             className="btn btn-solid"
-            onClick={() => context.addToCart(product, variantSelected, quantity)}
+            onClick={() =>
+              context.addToCart(product, variantSelected, quantity)
+            }
           >
             add to cart
           </a>
           <Link
             href={`/account/checkout`}
             className="btn btn-solid"
-            onClick={() => context.addToCart(product, variantSelected, quantity)}
+            onClick={() =>
+              context.addToCart(product, variantSelected, quantity)
+            }
           >
             buy now
           </Link>

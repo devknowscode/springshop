@@ -2,11 +2,7 @@ package com.project.shopapp.models;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.project.shopapp.models.id.CartProductId;
-import jakarta.persistence.Column;
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -17,8 +13,15 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CartProduct {
-    @EmbeddedId
-    private CartProductId id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "cart_id")
+    private Long cartId;
+
+    @Column(name = "product_id")
+    private Long productId;
 
     @Column(name = "product_qty")
     @JsonProperty("product_qty")

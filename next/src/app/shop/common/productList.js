@@ -51,7 +51,7 @@ const ProductList = ({ colClass, layoutList, openSidebar, noSidebar }) => {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:8088/v1/api/products?page=0&limit=${limit}&keyword=${keyword}`
+        `http://localhost:8088/v1/api/products?page=0&limit=${limit}&keyword=${keyword}&categoryName=${selectedCategory}`
       )
       .then(({ data }) => {
         setData(data.metadata);
@@ -60,14 +60,14 @@ const ProductList = ({ colClass, layoutList, openSidebar, noSidebar }) => {
       .catch((e) => {
         console.log(e);
       });
-  }, [limit, keyword]);
+  }, [limit, keyword, selectedCategory]);
 
   const handlePagination = (e, p) => {
     setPage(p)
     setIsLoading(true);
     axios
       .get(
-        `http://localhost:8088/v1/api/products?page=${p - 1}&limit=${limit}&keyword=${keyword}`
+        `http://localhost:8088/v1/api/products?page=${p - 1}&limit=${limit}&keyword=${keyword}&categoryName=${selectedCategory}`
       )
       .then(({ data }) => {
         setIsLoading(false);
@@ -168,8 +168,8 @@ const ProductList = ({ colClass, layoutList, openSidebar, noSidebar }) => {
                     <div className="product-filter-content">
                       <div className="search-count">
                         <h5>
-                          {data.products
-                            ? `Showing Products 1-${data.products.length} of ${data.totalProduct} `
+                          {data?.products
+                            ? `Showing Products 1-${data?.products.length} of ${data.totalProduct} `
                             : "loading"}
                           Result
                         </h5>
@@ -279,9 +279,8 @@ const ProductList = ({ colClass, layoutList, openSidebar, noSidebar }) => {
                               alt=""
                             />
                             <h3>
-                              <strong>Your Cart is Empty</strong>
+                              <strong>Không tìm thấy sản phẩm</strong>
                             </h3>
-                            <h4>Explore more shortlist some items.</h4>
                           </div>
                         </div>
                       </Col>
@@ -315,9 +314,6 @@ const ProductList = ({ colClass, layoutList, openSidebar, noSidebar }) => {
                               addWishlist={() =>
                                 wishlistContext.addToWish(product)
                               }
-                              addCart={() =>
-                                cartContext.addToCart(product, quantity)
-                              }
                             />
                           </div>
                         </div>
@@ -329,7 +325,7 @@ const ProductList = ({ colClass, layoutList, openSidebar, noSidebar }) => {
               <div className="section-t-space">
                 <div className="center">
                   <Pagination
-                    count={data.totalPages}
+                    count={data?.totalPages}
                     variant="outlined"
                     shape="rounded"
                     page={page}

@@ -4,10 +4,10 @@ import { Row, Col, Media, Modal, ModalBody, ModalHeader } from "reactstrap";
 import CartContext from "../../../helpers/cart";
 import { CurrencyContext } from "../../../helpers/Currency/CurrencyContext";
 import MasterProductDetail from "./MasterProductDetail";
+import convertCurrencyFormat from "@/utils/currencyFormat";
 
 const ProductItem = ({
   product,
-  addCart,
   des,
   addWishlist,
   cartClass,
@@ -19,9 +19,6 @@ const ProductItem = ({
   const cartContext = useContext(CartContext);
   const curContext = useContext(CurrencyContext);
   const currency = curContext.state;
-  const plusQty = cartContext.plusQty;
-  const minusQty = cartContext.minusQty;
-  const quantity = cartContext.quantity;
   const setQuantity = cartContext.setQuantity;
 
   const [image, setImage] = useState("");
@@ -63,9 +60,6 @@ const ProductItem = ({
           />
         </div>
         <div className={cartClass}>
-          <button title="Add to cart" onClick={addCart}>
-            <i className="fa fa-shopping-cart" aria-hidden="true"></i>
-          </button>
           <a href={null} title="Add to Wishlist" onClick={addWishlist}>
             <i className="fa fa-heart" aria-hidden="true"></i>
           </a>
@@ -115,63 +109,18 @@ const ProductItem = ({
                 ></button>
                 <h2>{product.title}</h2>
                 <h3>
-                  {currency.symbol}
-                  {(product.price * currency.value).toFixed(2)}
+                  {convertCurrencyFormat(product.price * currency.value)}
                 </h3>
                 <div className="border-product">
                   <h6 className="product-title">product details</h6>
                   <p>{product.description}</p>
                 </div>
-                <div className="product-description border-product">
-                  <h6 className="product-title">quantity</h6>
-                  <div className="qty-box">
-                    <div className="input-group">
-                      <span className="input-group-prepend">
-                        <button
-                          type="button"
-                          className="btn quantity-left-minus"
-                          onClick={minusQty}
-                          data-type="minus"
-                          data-field=""
-                        >
-                          <i className="fa fa-angle-left"></i>
-                        </button>
-                      </span>
-                      <input
-                        type="text"
-                        name="quantity"
-                        value={quantity}
-                        onChange={changeQty}
-                        className="form-control input-number"
-                      />
-                      <span className="input-group-prepend">
-                        <button
-                          type="button"
-                          className="btn quantity-right-plus"
-                          onClick={() => plusQty(product)}
-                          data-type="plus"
-                          data-field=""
-                        >
-                          <i className="fa fa-angle-right"></i>
-                        </button>
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <div className="product-buttons">
-                  <button
-                    className="btn btn-solid"
-                    onClick={() => addCart(product)}
-                  >
-                    add to cart
-                  </button>
-                  <button
-                    className="btn btn-solid"
-                    onClick={clickProductDetail}
-                  >
-                    View detail
-                  </button>
-                </div>
+                <button
+                  className="btn btn-solid"
+                  onClick={clickProductDetail}
+                >
+                  View detail
+                </button>
               </div>
             </Col>
           </Row>

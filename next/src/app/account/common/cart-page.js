@@ -10,16 +10,19 @@ const CartPage = () => {
   const cartItems = context.state;
   const total = context.cartTotal;
   const removeFromCart = context.removeFromCart;
-  // const [quantity, setQty] = useState(1);
-  const [quantityError, setQuantityError] = useState(false);
   const updateQty = context.updateQty;
 
   const handleQtyUpdate = (item, quantity) => {
     if (quantity >= 1) {
-      setQuantityError(false);
-      updateQty(item, quantity);
+      if (item.stock >= quantity) {
+        updateQty(item, quantity);
+      } else {
+        alert("Số lượng sản phẩm chọn đã đạt mức tối đa")
+      }
     } else {
-      setQuantityError(true);
+      if (confirm("Bạn có muốn xóa sản phẩm này không?") == true) {
+        removeFromCart(item);
+      }
     }
   };
 
@@ -63,6 +66,11 @@ const CartPage = () => {
                             <Link href={`/product-details/` + item.slug}>
                               {item.title}
                             </Link>
+                            <div className="mt-20">
+                              <span>
+                                Phân loại hàng: {item.product_variant_name}
+                              </span>
+                            </div>
                             <div className="mobile-cart-content row">
                               <div className="col-xs-3">
                                 <div className="qty-box">
@@ -75,9 +83,6 @@ const CartPage = () => {
                                       }
                                       className="form-control input-number"
                                       value={item.qty}
-                                      style={{
-                                        borderColor: quantityError && "red",
-                                      }}
                                     />
                                   </div>
                                 </div>
@@ -120,14 +125,14 @@ const CartPage = () => {
                                     handleQtyUpdate(item, e.target.value)
                                   }
                                   className="form-control input-number"
-                                  value={item.qty}
-                                  style={{
-                                    borderColor: quantityError && "red",
-                                  }}
+                                  value={
+                                    item.qty > item.stock
+                                      ? item.stock
+                                      : item.qty
+                                  }
                                 />
                               </div>
                             </div>
-                            {item.qty >= item.stock ? "out of Stock" : ""}
                           </td>
                           <td>
                             <i
@@ -184,9 +189,11 @@ const CartPage = () => {
                       alt=""
                     />
                     <h3>
-                      <strong>Your Cart is Empty</strong>
+                      <strong>Giỏ hàng của bạn đang trống</strong>
                     </h3>
-                    <h4>Explore more shortlist some items.</h4>
+                    <Link href="/">
+                      <button className="cto-in-cart">Mua ngay</button>
+                    </Link>
                   </div>
                 </div>
               </Col>

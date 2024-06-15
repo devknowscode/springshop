@@ -20,7 +20,7 @@ const CartProvider = (props) => {
   const [cartItems, setCartItems] = useState(getLocalCartItems());
   const [cartTotal, setCartTotal] = useState(0);
   const [quantity, setQuantity] = useState(1);
-  const [stock, setStock] = useState("In Stock");
+  const [stock, setStock] = useState("");
 
   useEffect(() => {
     const initialTotal = 0;
@@ -41,14 +41,21 @@ const CartProvider = (props) => {
       router.push("/account/login")
       return;
     }
-    toast.success("Product Added Successfully !");
+
+    if (!variant) {
+      toast.error("Vui lòng chọn loại sản phẩm")
+      return
+    }
+
+    toast.success("Thêm giỏ hàng thành công");
     const index = cartItems.findIndex(
-      (itm) => itm.id === item.id && itm.variants.sku === item.variants.sku
+      (itm) => itm.id === item.id && itm.sku === variant.sku
     );
 
     if (index !== -1) {
       cartItems[index] = {
         ...item,
+        ...variant,
         qty: quantity,
         total: (item.price - (item.price * item.discount) / 100) * quantity,
       };
@@ -56,22 +63,23 @@ const CartProvider = (props) => {
     } else {
       const product = {
         ...item,
+        ...variant,
         qty: quantity,
-        total: item.price - (item.price * item.discount) / 100,
+        total: (variant.price - (variant.price * item.discount) / 100) * quantity,
       };
       setCartItems([...cartItems, product]);
     }
   };
 
   const removeFromCart = (item) => {
-    toast.error("Product Removed Successfully !");
-    setCartItems(cartItems.filter((e) => e.id !== item.id));
+    toast.error("Bỏ sản phẩm thành công");
+    setCartItems(cartItems.filter((itm) => itm.sku !== item.sku));
   };
 
   const minusQty = () => {
     if (quantity > 1) {
       setQuantity(quantity - 1);
-      setStock("InStock");
+      setStock("");
     }
   };
 
@@ -79,14 +87,14 @@ const CartProvider = (props) => {
     if (quantity < item.stock) {
       setQuantity(quantity + 1);
     } else {
-      setStock("Out of Stock !");
+      setStock("Số lượng sản phẩm chọn đã đạt mức tối đa");
     }
   };
 
   // Update Product Quantity
   const updateQty = (item, quantity) => {
     if (quantity >= 1) {
-      const index = cartItems.findIndex((itm) => itm.id === item.id);
+      const index = cartItems.findIndex((itm) => itm.id === item.id && itm.sku === item.sku);
       if (index !== -1) {
         cartItems[index] = {
           ...item,

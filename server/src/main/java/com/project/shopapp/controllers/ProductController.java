@@ -33,7 +33,7 @@ public class ProductController {
     @ResponseStatus(HttpStatus.OK)
     public BaseResponse<ProductListResponse> getProducts(
             @RequestParam(defaultValue = "") String keyword,
-            @RequestParam(defaultValue = "0", name = "category_id") Long categoryId,
+            @RequestParam(defaultValue = "") String categoryName,
             @RequestParam(name = "page", defaultValue = "0") int page,
             @RequestParam(name = "limit", defaultValue = "8") int limit
     ) {
@@ -43,7 +43,7 @@ public class ProductController {
                 Sort.by("id").ascending()
         );
 
-        Page<ProductResponse> productResponses = service.getAllProducts(keyword, categoryId, pageRequest);
+        Page<ProductResponse> productResponses = service.getAllProducts(keyword, categoryName, pageRequest);
         ProductListResponse metadata = ProductListResponse.builder()
                 .products(productResponses.getContent())
                 .totalPages(productResponses.getTotalPages())

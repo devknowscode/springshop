@@ -38,10 +38,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Page<ProductResponse> getAllProducts(
             String keyword,
-            Long categoryId,
+            String categoryName,
             PageRequest pageRequest
     ) {
-        Page<Product> productsPage = repository.searchProducts(categoryId, keyword, pageRequest);
+        Page<Product> productsPage = repository.searchProducts(categoryName, keyword, pageRequest);
 
         return productsPage.map(this::convertProductResponse);
     }
@@ -248,7 +248,7 @@ public class ProductServiceImpl implements ProductService {
         return variantAttributes.entrySet().stream()
                 .filter(entry -> !"sku".equalsIgnoreCase(entry.getKey()) && !"stock".equalsIgnoreCase(entry.getKey()) && !"price".equalsIgnoreCase(entry.getKey()))
                 .map(Map.Entry::getValue)
-                .collect(Collectors.joining("-"));
+                .collect(Collectors.joining(", "));
     }
 
     public static String generateSku(String productName, String category) {

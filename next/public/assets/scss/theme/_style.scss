@@ -9378,6 +9378,14 @@ footer {
 }
 .cart-section,
 .wishlist-section {
+  .cto-in-cart {
+    margin-top: 1rem;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #ff4c3b;
+    border: none;
+    padding: .5rem 1rem;
+  }
   .table {
     tbody {
       & + tbody {
@@ -9441,6 +9449,9 @@ footer {
           img {
             height: 90px;
           }
+        }
+        .mt-20 {
+          margin-top: 1rem;
         }
         .td-color {
           color: var(--theme-deafult);

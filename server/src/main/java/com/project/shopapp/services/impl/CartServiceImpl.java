@@ -6,7 +6,6 @@ import com.project.shopapp.models.Cart;
 import com.project.shopapp.models.CartProduct;
 import com.project.shopapp.models.Product;
 import com.project.shopapp.models.User;
-import com.project.shopapp.models.id.CartProductId;
 import com.project.shopapp.repositories.CartProductRepostiory;
 import com.project.shopapp.repositories.CartRepository;
 import com.project.shopapp.repositories.ProductRepository;
@@ -58,9 +57,9 @@ public class CartServiceImpl implements CartSerice {
             Cart cart = repository.save(newCart);
 
             // save product added to cart
-            CartProductId cartProductId = new CartProductId(cart.getId(), product.getId());
             CartProduct cartProduct = CartProduct.builder()
-                    .id(cartProductId)
+                    .cartId(cart.getId())
+                    .productId(product.getId())
                     .productQty(cartDto.getProductQty())
                     .build();
             cartProductRepostiory.save(cartProduct);
@@ -69,8 +68,8 @@ public class CartServiceImpl implements CartSerice {
         }
 
         // save product added to cart
-        CartProductId cartProductId = new CartProductId(existingCart.getId(), product.getId());
-        Optional<CartProduct> existingCartProductOptional = cartProductRepostiory.findById(cartProductId);
+        Optional<CartProduct> existingCartProductOptional =
+            cartProductRepostiory.findCartProductByCartIdAndProductId(existingCart.getId(), product.getId());
 
         // check product which user added to cart before
         if (existingCartProductOptional.isPresent()) {
@@ -81,7 +80,8 @@ public class CartServiceImpl implements CartSerice {
             cartProductRepostiory.save(existingCartProduct);
         } else {
             CartProduct cartProduct = CartProduct.builder()
-                    .id(cartProductId)
+                    .cartId(existingCart.getId())
+                    .productId(product.getId())
                     .productQty(cartDto.getProductQty())
                     .build();
             // save new product in cart

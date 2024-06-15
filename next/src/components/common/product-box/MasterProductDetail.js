@@ -18,13 +18,18 @@ const MasterProductDetail = ({
     <div className={`product-detail ${productDetail} ${detailClass}`}>
       <div>
         <div className="rating">{RatingStars}</div>
-        <h6>{product.title}</h6>
+        <h6>
+          {product.title.length < 43
+            ? product.title
+            : product.title.substring(0, 43) + "..."}
+        </h6>
         {des ? <p>{product.description}</p> : ""}
         <h4>
           {product.sale ? (
             <>
-              {(
-                convertCurrencyFormat((product.price - (product.price * product.discount) / 100) * currency.value)
+              {convertCurrencyFormat(
+                (product.price - (product.price * product.discount) / 100) *
+                  currency.value
               )}
               <del>
                 <span className="money">

@@ -2,7 +2,6 @@ package com.project.shopapp.services;
 
 import com.project.shopapp.dtos.CategoryDto;
 import com.project.shopapp.exceptions.custom.DataAlreadyExistsException;
-import com.project.shopapp.exceptions.custom.InvalidFieldException;
 
 import java.util.List;
 

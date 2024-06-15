@@ -4,15 +4,14 @@ import { WishlistContext } from "../../../helpers/wishlist/WishlistContext";
 import CartContext from "../../../helpers/cart/index";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import convertCurrencyFormat from "@/utils/currencyFormat";
 
 const WishlistPage = () => {
   const router = useRouter();
   const context = useContext(WishlistContext);
-  const cartContext = useContext(CartContext);
 
   const wishlist = context.wishlistItems;
   const removeFromWish = context.removeFromWish;
-  const addCart = cartContext.addToCart;
 
   const checkOut = () => {
     router.push("/account/checkout");
@@ -39,18 +38,18 @@ const WishlistPage = () => {
                     <tbody key={i}>
                       <tr>
                         <td>
-                          <a href={`/product-details/${item.id}`}>
+                          <a href={`/product-details/${item.slug}`}>
                             <img src={process.env.IMAGE_SERVER_URL + item.images[0].src} alt="" />
                           </a>
                         </td>
                         <td>
-                          <a href="#">{item.title}</a>
+                          <a href={`/product-details/${item.slug}`}>{item.title}</a>
                           <Row className="mobile-cart-content">
                             <div className="col-xs-3">
                               <p>out of stock</p>
                             </div>
                             <div className="col-xs-3">
-                              <h2 className="td-color">$63.00</h2>
+                              <h2 className="td-color">{convertCurrencyFormat(item.price)}</h2>
                             </div>
                             <div className="col-xs-3">
                               <h2 className="td-color">
@@ -65,7 +64,7 @@ const WishlistPage = () => {
                           </Row>
                         </td>
                         <td>
-                          <h2>${item.price}</h2>
+                          <h2>{convertCurrencyFormat(item.price)}</h2>
                         </td>
                         <td>
                           <p>{item.variants[0].stock > 0 ? "In Stock" : "out of Stock"}</p>
@@ -76,12 +75,6 @@ const WishlistPage = () => {
                             className="icon me-3"
                             onClick={() => removeFromWish(item)}>
                             <i className="fa fa-times"></i>
-                          </a>
-                          <a
-                            href={null}
-                            className="cart"
-                            onClick={() => addCart(item)}>
-                            <i className="fa fa-shopping-cart"></i>
                           </a>
                         </td>
                       </tr>

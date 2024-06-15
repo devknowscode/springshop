@@ -4,105 +4,7 @@ import React from "react";
 import CommonLayout from "@/components/shop/common-layout";
 import { Container, Row, Col, Media } from "reactstrap";
 import aboutus from "/public/assets/images/about/about_us.jpg";
-import Slider from "react-slick";
-import { Slider2, Slider4 } from "@/services/script";
-import ServiceLayout from "@/components/common/Service/service1.js";
 
-const TeamData = [
-  {
-    img: "/assets/images/team/1.jpg",
-    name: "Trung Lê Quang",
-    post: "CEo & Founder At Company",
-  },
-  {
-    img: "/assets/images/team/2.jpg",
-    name: "Trung Nguyễn Minh",
-    post: "CEo & Founder At Company",
-  },
-  {
-    img: "/assets/images/team/3.jpg",
-    name: "Phát Nguyễn Lý",
-    post: "CEo & Founder At Company",
-  },
-  {
-    img: "/assets/images/team/4.jpg",
-    name: "Nhàn Nguyễn Thị",
-    post: "CEo & Founder At Company",
-  },
-  {
-    img: "/assets/images/team/1.jpg",
-    name: "Trung Lê Quang",
-    post: "CEo & Founder At Company",
-  },
-];
-
-const Team = ({ img, name, post }) => {
-  return (
-    <div>
-      <div>
-        <Media src={img} className="img-fluid blur-up lazyload bg-img" alt="" />
-      </div>
-      <h4>{name}</h4>
-      <h6>{post}</h6>
-    </div>
-  );
-};
-
-const TeamDetailData = [
-  {
-    img: "/assets/images/avtar.jpg",
-    name: "mark jenco",
-    post: "designer",
-    about: "you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings.",
-  },
-  {
-    img: "/assets/images/2.jpg",
-    name: "mark jenco",
-    post: "designer",
-    about: "you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings.",
-  },
-  {
-    img: "/assets/images/avtar.jpg",
-    name: "mark jenco",
-    post: "designer",
-    about: "you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings.",
-  },
-  {
-    img: "/assets/images/avtar.jpg",
-    name: "mark jenco",
-    post: "designer",
-    about: "you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings.",
-  },
-  {
-    img: "/assets/images/avtar.jpg",
-    name: "mark jenco",
-    post: "designer",
-    about: "you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings.",
-  },
-  {
-    img: "/assets/images/avtar.jpg",
-    name: "mark jenco",
-    post: "designer",
-    about: "you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings.",
-  },
-];
-
-const TeamDetail = ({ img, name, post, about }) => {
-  return (
-    <div>
-      <div className="media">
-        <div className="text-center">
-          <Media src={img} alt="#" />
-          <h5>{name}</h5>
-          <h6>{post}</h6>
-        </div>
-        <div className="media-body">
-          <p>{about}</p>
-        </div>
-      </div>
-    </div>
-  );
-};
 const AboutUs = () => {
   return (
     <>
@@ -131,43 +33,6 @@ const AboutUs = () => {
             </Row>
           </Container>
         </section>
-
-        {/* <!--Testimonial start--> */}
-        {/* <section className="testimonial small-section">
-          <Container>
-            <Row>
-              <Col sm="12">
-                <Slider {...Slider2} className="slide-2 testimonial-slider no-arrow">
-                  {TeamDetailData.map((data, i) => {
-                    return <TeamDetail key={i} img={data.img} name={data.name} post={data.post} about={data.about} />;
-                  })}
-                </Slider>
-              </Col>
-            </Row>
-          </Container>
-        </section> */}
-        {/* <!--Testimonial ends--> */}
-
-        {/* <!--Team start--> */}
-        <section id="team" className="team section-b-space ratio_asos">
-          <Container>
-            <Row>
-              <Col sm="12">
-                <h2>Our Team</h2>
-                <Slider className="team-4" {...Slider4}>
-                  {TeamData.map((data, i) => {
-                    return <Team key={i} img={data.img} name={data.name} post={data.post} />;
-                  })}
-                </Slider>
-              </Col>
-            </Row>
-          </Container>
-        </section>
-        {/* <!--Team ends--> */}
-
-        <div className="section-b-space">
-          <ServiceLayout sectionClass={"service border-section small-section"} />
-        </div>
       </CommonLayout>
     </>
   );

@@ -13,7 +13,7 @@ const FilterProvider = (props) => {
   let sizeParam = size ? size.split(",") : null;
   let param = brand ? brand.split(",") : [];
   const [selectedCategory, setSelectedCategory] = useState(
-    category ? category : "fashion"
+    category ? category : ""
   );
   const [selectedBrands, setSelectedBrands] = useState(param ? param : []);
   const [selectedColor, setSelectedColor] = useState(color ? color : "");
