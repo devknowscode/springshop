@@ -15,10 +15,9 @@ public class ProductVariantResponse {
     private String productVariantName;
 
     private String sku;
-    private Double price;
+    private int price;
     private int stock;
     private boolean status;
-
 
     @JsonProperty("attributes")
     private Map<String, String> attributes;

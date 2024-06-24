@@ -82,8 +82,6 @@ const HeaderOne = ({
                             ></i>
                           </div>
                         </li>
-                        <Currency icon={settings.src} />
-                        {/*Header Cart Component */}
                         {direction === undefined ? (
                           <CartContainer layout={direction} icon={cart.src} />
                         ) : (

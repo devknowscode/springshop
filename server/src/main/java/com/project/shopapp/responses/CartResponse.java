@@ -2,6 +2,7 @@ package com.project.shopapp.responses;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.project.shopapp.dtos.CartProductDto;
 import com.project.shopapp.models.CartProduct;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,5 +22,5 @@ public class CartResponse {
     private String cartState;
 
     @JsonProperty("products_in_cart")
-    private List<CartProduct> cartProducts;
+    private List<CartProductDto> cartProducts;
 }

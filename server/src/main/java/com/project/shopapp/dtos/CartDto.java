@@ -12,15 +12,14 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class CartDto {
-    @NotNull(message = "User ID is required!")
-    @JsonProperty("user_id")
-    private Long userId;
-
     @NotNull(message = "Product ID is required")
     @JsonProperty("product_id")
     private Long productId;
+
+    @NotNull(message = "Product sku is required")
+    @JsonProperty("product_sku")
+    private String productSku;
 
     @JsonProperty("product_qty")
     private int productQty = 1;

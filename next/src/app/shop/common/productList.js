@@ -37,17 +37,6 @@ const ProductList = ({ colClass, layoutList, openSidebar, noSidebar }) => {
     keyword = "";
   }
 
-  // useEffect(() => {
-  //   const pathname = window.location.pathname;
-  //   console.log("pathname::", pathname);
-  //   setUrl(pathname);
-  //   router.push(
-  //     `${pathname}?${filterContext.state}&brand=${selectedBrands}&color=${selectedColor}&size=${selectedSize}&minPrice=${selectedPrice.min}&maxPrice=${selectedPrice.max}`,
-  //     undefined,
-  //     { shallow: true }
-  //   );
-  // }, [selectedBrands, selectedColor, selectedSize, selectedPrice]);
-
   useEffect(() => {
     axios
       .get(
@@ -99,51 +88,6 @@ const ProductList = ({ colClass, layoutList, openSidebar, noSidebar }) => {
       <div className="page-main-content">
         <Row>
           <Col sm="12">
-            <Row>
-              <Col xs="12">
-                <ul className="product-filter-tags">
-                  {selectedBrands.map((brand, i) => (
-                    <li key={i}>
-                      <a href={null} className="filter_tag">
-                        {brand}
-                        <i
-                          className="fa fa-close"
-                          onClick={() => removeBrand(brand)}
-                        ></i>
-                      </a>
-                    </li>
-                  ))}
-                  {selectedColor ? (
-                    <li>
-                      <a href={null} className="filter_tag">
-                        {selectedColor}
-                        <i className="fa fa-close" onClick={removeColor}></i>
-                      </a>
-                    </li>
-                  ) : (
-                    ""
-                  )}
-                  {selectedSize.map((size, i) => (
-                    <li key={i}>
-                      <a href={null} className="filter_tag">
-                        {size}
-                        <i
-                          className="fa fa-close"
-                          onClick={() => removeSize(size)}
-                        ></i>
-                      </a>
-                    </li>
-                  ))}
-                  {
-                    <li>
-                      <a href={null} className="filter_tag">
-                        price: {selectedPrice.min}- {selectedPrice.max}
-                      </a>
-                    </li>
-                  }
-                </ul>
-              </Col>
-            </Row>
             <div className="collection-product-wrapper">
               <div className="product-top-filter">
                 {!noSidebar ? (
@@ -169,9 +113,8 @@ const ProductList = ({ colClass, layoutList, openSidebar, noSidebar }) => {
                       <div className="search-count">
                         <h5>
                           {data?.products
-                            ? `Showing Products 1-${data?.products.length} of ${data.totalProduct} `
+                            ? `Đã tìm thấy ${data.totalProduct} sản phẩm`
                             : "loading"}
-                          Result
                         </h5>
                       </div>
                       <div className="collection-view">
@@ -243,19 +186,17 @@ const ProductList = ({ colClass, layoutList, openSidebar, noSidebar }) => {
                         <select
                           onChange={(e) => setLimit(parseInt(e.target.value))}
                         >
-                          <option value="8">8 Products Per Page</option>
-                          <option value="12">12 Products Per Page</option>
-                          <option value="16">16 Products Per Page</option>
+                          <option value="8">8 sản phẩm trong trang</option>
+                          <option value="12">12 sản phẩm trong trang</option>
+                          <option value="16">16 sản phẩm trong trang</option>
                         </select>
                       </div>
                       <div className="product-page-filter">
                         <select onChange={(e) => setSortBy(e.target.value)}>
-                          <option value="AscOrder">Sorting items</option>
-                          <option value="HighToLow">High To Low</option>
-                          <option value="LowToHigh">Low To High</option>
-                          <option value="Newest">Newest</option>
-                          <option value="AscOrder">Asc Order</option>
-                          <option value="DescOrder">Desc Order</option>
+                          <option value="AscOrder">Sắp xếp</option>
+                          <option value="HighToLow">Cao xuống thấp</option>
+                          <option value="LowToHigh">Thấp xuống cao</option>
+                          <option value="Newest">Mới nhất</option>
                         </select>
                       </div>
                     </div>

@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import Link from "next/link";
 import { Input } from "reactstrap";
-import { CurrencyContext } from "@/helpers/Currency/CurrencyContext";
 import CartContext from "@/helpers/cart";
 import CountdownComponent from "@/components/common/widgets/countdownComponent";
 import MasterSocial from "./master_social";
@@ -141,7 +140,7 @@ const DetailsWithPrice = ({ item, stickyClass }) => {
           </div>
         </div>
         <div className="product-description border-product">
-          <h6 className="product-title">quantity</h6>
+          <h6 className="product-title">Số lượng</h6>
           <div className="qty-box">
             <div className="input-group">
               <span className="input-group-prepend">
@@ -186,7 +185,7 @@ const DetailsWithPrice = ({ item, stickyClass }) => {
             </div>
           </div>
           {/* TODO: Add css to this */}
-          <div>{stock}</div>
+          <div className="full-stock-message">{stock}</div>
         </div>
         <div className="product-buttons">
           <a
@@ -196,7 +195,7 @@ const DetailsWithPrice = ({ item, stickyClass }) => {
               context.addToCart(product, variantSelected, quantity)
             }
           >
-            add to cart
+            Thêm giỏ hàng
           </a>
           <Link
             href={`/account/checkout`}
@@ -205,7 +204,7 @@ const DetailsWithPrice = ({ item, stickyClass }) => {
               context.addToCart(product, variantSelected, quantity)
             }
           >
-            buy now
+            Mua ngay
           </Link>
         </div>
         <div className="border-product">

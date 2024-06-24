@@ -8,7 +8,7 @@ import BlogSidebar from "./common/blog-sidebar";
 
 const blogRightSidebar = () => {
   return (
-    <CommonLayout parent="blog" title="blog">
+    <CommonLayout parent="trang chủ" title="bài viết">
       <section className="section-b-space blog-page ratio2_3">
         <Container>
           <Row>

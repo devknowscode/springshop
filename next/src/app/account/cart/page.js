@@ -7,7 +7,7 @@ import CartPage from '../common/cart-page';
 
 const Wishliat = () => {
     return (
-        <CommonLayout parent="home" title="cart">
+        <CommonLayout parent="Trang chủ" title="Giỏ hàng">
             <CartPage />
         </CommonLayout>
     )

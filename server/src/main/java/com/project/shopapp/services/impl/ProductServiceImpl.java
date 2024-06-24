@@ -128,7 +128,7 @@ public class ProductServiceImpl implements ProductService {
             ProductVariant productVariant = new ProductVariant();
             productVariant.setProductVariantName(productVariantName);
             productVariant.setSku(generateSku(newProduct.getName(), newProduct.getCategory().getName()));
-            productVariant.setPrice(Double.parseDouble(variantAttribute.get("price")));
+            productVariant.setPrice(Integer.parseInt(variantAttribute.get("price")));
             productVariant.setStock(Integer.parseInt(variantAttribute.get("stock")));
             productVariant.setStatus(productVariant.getStock() > 0);
             productVariant.setProduct(newProduct);
@@ -175,7 +175,7 @@ public class ProductServiceImpl implements ProductService {
 
         response.setTitle(newProduct.getName());
         response.setDescription(newProduct.getDescription());
-        response.setPrice(Double.parseDouble(productDto.getProductVariants().get(0).get("price")));
+        response.setPrice(Integer.parseInt(productDto.getProductVariants().get(0).get("price")));
         response.setSlug(newProduct.getSlug());
         response.setSale(newProduct.isSale());
         response.setDiscount(newProduct.getDiscount());

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import Link from "next/link";
 import CartContext from "../../../helpers/cart";
 import { Container, Row, Col, Media } from "reactstrap";
@@ -14,10 +14,11 @@ const CartPage = () => {
 
   const handleQtyUpdate = (item, quantity) => {
     if (quantity >= 1) {
-      if (item.stock >= quantity) {
+      if (item.product_stock >= quantity) {
         updateQty(item, quantity);
       } else {
-        alert("Số lượng sản phẩm chọn đã đạt mức tối đa")
+        alert("Số lượng sản phẩm chọn đã đạt mức tối đa"
+        );
       }
     } else {
       if (confirm("Bạn có muốn xóa sản phẩm này không?") == true) {
@@ -36,12 +37,12 @@ const CartPage = () => {
                 <table className="table cart-table table-responsive-xs">
                   <thead>
                     <tr className="table-head">
-                      <th scope="col">image</th>
-                      <th scope="col">product name</th>
-                      <th scope="col">price</th>
-                      <th scope="col">quantity</th>
-                      <th scope="col">action</th>
-                      <th scope="col">total</th>
+                      <th scope="col">Hình ảnh</th>
+                      <th scope="col">Tên sản phẩm</th>
+                      <th scope="col">Giá</th>
+                      <th scope="col">Số lượng</th>
+                      <th scope="col">Trạng thái</th>
+                      <th scope="col">Tổng</th>
                     </tr>
                   </thead>
                   {cartItems.map((item, index) => {
@@ -49,22 +50,20 @@ const CartPage = () => {
                       <tbody key={index}>
                         <tr>
                           <td>
-                            <Link href={`/product-details/` + item.slug}>
+                            <Link href={`/product-details/` + item.product_slug}>
                               <Media
                                 src={
-                                  item.images
-                                    ? process.env.IMAGE_SERVER_URL +
-                                      item.images[0].src
-                                    : process.env.IMAGE_SERVER_URL +
-                                      item.images[0].src
+                                  item.product_image &&
+                                  process.env.IMAGE_SERVER_URL +
+                                    item.product_image
                                 }
                                 alt=""
                               />
                             </Link>
                           </td>
                           <td>
-                            <Link href={`/product-details/` + item.slug}>
-                              {item.title}
+                            <Link href={`/product-details/` + item.product_slug}>
+                              {item.product_name}
                             </Link>
                             <div className="mt-20">
                               <span>
@@ -82,17 +81,17 @@ const CartPage = () => {
                                         handleQtyUpdate(item, e.target.value)
                                       }
                                       className="form-control input-number"
-                                      value={item.qty}
+                                      value={item.product_qty}
                                     />
                                   </div>
                                 </div>
-                                {item.qty >= item.stock ? "out of Stock" : ""}
+                                {item.product_qty >= item.product_stock ? "out of Stock" : ""}
                               </div>
                               <div className="col-xs-3">
                                 <h2 className="td-color">
                                   {convertCurrencyFormat(
-                                    item.price -
-                                      (item.price * item.discount) / 100
+                                    item.product_price -
+                                      (item.product_price * item.product_discount) / 100
                                   )}
                                 </h2>
                               </div>
@@ -111,7 +110,7 @@ const CartPage = () => {
                           <td>
                             <h2>
                               {convertCurrencyFormat(
-                                item.price - (item.price * item.discount) / 100
+                                item.product_price - (item.product_price * item.product_discount) / 100
                               )}
                             </h2>
                           </td>
@@ -126,9 +125,9 @@ const CartPage = () => {
                                   }
                                   className="form-control input-number"
                                   value={
-                                    item.qty > item.stock
-                                      ? item.stock
-                                      : item.qty
+                                    item.product_qty > item.product_stock
+                                      ? item.product_stock
+                                      : item.product_qty
                                   }
                                 />
                               </div>
@@ -153,7 +152,7 @@ const CartPage = () => {
                 <table className="table cart-table table-responsive-md">
                   <tfoot>
                     <tr>
-                      <td>total price :</td>
+                      <td>Tổng đơn hàng :</td>
                       <td>
                         <h2>{convertCurrencyFormat(total)}</h2>
                       </td>

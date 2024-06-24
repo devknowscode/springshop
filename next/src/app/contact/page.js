@@ -49,7 +49,7 @@ const ContactDetail = ({ img, title, desc1, desc2 }) => {
 
 const Contact = () => {
   return (
-    <CommonLayout parent="home" title="Contact">
+    <CommonLayout parent="Trang chủ" title="Liên hệ">
       <section className="contact-page section-b-space">
         <Container>
           <Row className="section-b-space">
@@ -85,32 +85,32 @@ const Contact = () => {
               <Form className="theme-form">
                 <Row>
                   <Col md="6">
-                    <Label className="form-label" for="name">First Name</Label>
+                    <Label className="form-label" for="name">Tên</Label>
                     <Input
                       type="text"
                       className="form-control"
                       id="name"
-                      placeholder="Enter Your name"
+                      placeholder="Nhập tên của bạn"
                       required
                     />
                   </Col>
                   <Col md="6">
-                    <Label className="form-label" for="last-name">Last Name</Label>
+                    <Label className="form-label" for="last-name">Họ</Label>
                     <Input
                       type="text"
                       className="form-control"
                       id="last-name"
-                      placeholder="Enter Your last name"
+                      placeholder="Nhập họ của bạn"
                       required
                     />
                   </Col>
                   <Col md="6">
-                    <Label className="form-label" for="phone">Phone number</Label>
+                    <Label className="form-label" for="phone">Số điện thoại</Label>
                     <Input
                       type="text"
                       className="form-control"
                       id="phone"
-                      placeholder="Enter your phone number"
+                      placeholder="Nhập số điện thoại"
                       required
                     />
                   </Col>
@@ -120,15 +120,15 @@ const Contact = () => {
                       type="email"
                       className="form-control"
                       id="email"
-                      placeholder="Enter your email"
+                      placeholder="Nhập email của bạn"
                       required
                     />
                   </Col>
                   <Col md="12">
-                    <Label className="form-label" for="message">Write Your Message</Label>
+                    <Label className="form-label" for="message">Góp ý</Label>
                     <textarea
                       className="form-control"
-                      placeholder="Write Your Message"
+                      placeholder="Nhập nội dung"
                       id="message"
                       rows="6"
                       required
@@ -136,7 +136,7 @@ const Contact = () => {
                   </Col>
                   <Col md="12">
                     <button className="btn btn-solid" type="submit">
-                      Send Your Message
+                      Gửi
                     </button>
                   </Col>
                 </Row>

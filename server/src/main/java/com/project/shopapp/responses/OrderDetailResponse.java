@@ -19,13 +19,13 @@ public class OrderDetailResponse {
     private Long id;
 
     @JsonProperty("customer_name")
-    private String fullName;
+    private String customerName;
 
     @JsonProperty("order_items")
     private List<OrderItemDto> orderItems;
 
     @JsonProperty("order_total")
-    private Double orderTotal;
+    private int orderTotal;
 
     @JsonProperty("order_status")
     private String status;

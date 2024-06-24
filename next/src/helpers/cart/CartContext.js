@@ -2,12 +2,17 @@ import React, { useState, useEffect } from "react";
 import Context from "./index";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import cartApiRequest from "@/utils/cartApiRequest";
 
 const getLocalCartItems = () => {
   try {
     const list = localStorage.getItem("cartList");
     if (list === null) {
-      return [];
+      const products_in_cart = cartApiRequest.getCart(token);
+      if (!products_in_cart) {
+        return [];
+      }
+      return products_in_cart;
     } else {
       return JSON.parse(list);
     }
@@ -21,6 +26,8 @@ const CartProvider = (props) => {
   const [cartTotal, setCartTotal] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [stock, setStock] = useState("");
+  const token = localStorage.getItem("userToken");
+  const router = useRouter();
 
   useEffect(() => {
     const initialTotal = 0;
@@ -33,47 +40,45 @@ const CartProvider = (props) => {
     localStorage.setItem("cartList", JSON.stringify(cartItems));
   }, [cartItems]);
 
-  const router = useRouter()
-
   // Add Product To Cart
-  const addToCart = (item, variant, quantity) => {
+  const addToCart = async (item, variant, quantity) => {
     if (!localStorage.getItem("userToken")) {
-      router.push("/account/login")
+      router.push("/account/login");
       return;
     }
 
     if (!variant) {
-      toast.error("Vui lòng chọn loại sản phẩm")
-      return
+      toast.error("Vui lòng chọn loại sản phẩm");
+      return;
     }
 
-    toast.success("Thêm giỏ hàng thành công");
-    const index = cartItems.findIndex(
-      (itm) => itm.id === item.id && itm.sku === variant.sku
-    );
-
-    if (index !== -1) {
-      cartItems[index] = {
-        ...item,
-        ...variant,
-        qty: quantity,
-        total: (item.price - (item.price * item.discount) / 100) * quantity,
-      };
-      setCartItems([...cartItems]);
+    const body = {
+      product_id: item.id,
+      product_sku: variant.sku,
+      product_qty: quantity,
+    };
+    const products_in_cart = await cartApiRequest.addToCart(token, body);
+    if (products_in_cart) {
+      setCartItems(products_in_cart);
     } else {
-      const product = {
-        ...item,
-        ...variant,
-        qty: quantity,
-        total: (variant.price - (variant.price * item.discount) / 100) * quantity,
-      };
-      setCartItems([...cartItems, product]);
+      toast.error("Thêm sản phẩm thất bại");
     }
   };
 
-  const removeFromCart = (item) => {
-    toast.error("Bỏ sản phẩm thành công");
-    setCartItems(cartItems.filter((itm) => itm.sku !== item.sku));
+  const removeFromCart = async (item) => {
+    console.log(item)
+    const cartId = localStorage.getItem("cartId");
+    const body = {
+      product_id: item.product_id,
+      product_sku: item.product_sku,
+    };
+    const products_in_cart = await cartApiRequest.removeProductInCart(token, cartId, body);
+    if (products_in_cart) {
+      toast.error("Bỏ sản phẩm thành công");
+      setCartItems(products_in_cart);
+      return;
+    }
+    toast.error("Bỏ sản phẩm thất bại");
   };
 
   const minusQty = () => {
@@ -92,28 +97,23 @@ const CartProvider = (props) => {
   };
 
   // Update Product Quantity
-  const updateQty = (item, quantity) => {
+  const updateQty = async (item, quantity) => {
     if (quantity >= 1) {
-      const index = cartItems.findIndex((itm) => itm.id === item.id && itm.sku === item.sku);
-      if (index !== -1) {
-        cartItems[index] = {
-          ...item,
-          qty: quantity,
-          total: item.price * quantity,
-        };
-        setCartItems([...cartItems]);
-        toast.info("Product Quantity Updated !");
-      } else {
-        const product = {
-          ...item,
-          qty: quantity,
-          total: (item.price - (item.price * item.discount) / 100) * quantity,
-        };
-        setCartItems([...cartItems, product]);
-        toast.success("Product Added Updated !");
+      console.log({item, quantity})
+      const cartId = localStorage.getItem("cartId");
+      
+      const body = {
+        product_id: item.product_id,
+        product_sku: item.product_sku,
+        product_qty: quantity,
+      };
+      const products_in_cart = await cartApiRequest.updateProductQtyInCart(token, cartId, body)
+      if (products_in_cart) {
+        toast.info("Cập nhật giỏ hàng thành công!");
+        setCartItems(products_in_cart)
+        return;
       }
-    } else {
-      toast.error("Enter Valid Quantity !");
+      toast.error("Cập nhật giỏ hàng không thành công!");
     }
   };
 
@@ -121,7 +121,6 @@ const CartProvider = (props) => {
   const clearCart = () => {
     setCartItems([]);
     localStorage.removeItem("cartList");
-    //toast.error("Cart Cleared Successfully !");
   };
 
   return (

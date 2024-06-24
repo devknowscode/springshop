@@ -1,10 +1,7 @@
 package com.project.shopapp.models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
@@ -23,11 +20,11 @@ public class ProductVariant {
     @Column(name = "product_variant_name", nullable = false)
     private String productVariantName;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String sku;
 
     @Column(nullable = false)
-    private Double price;
+    private int price;
 
     @Column(nullable = false)
     private int stock;
@@ -41,4 +38,10 @@ public class ProductVariant {
 
     @OneToMany(mappedBy = "productVariant", cascade = CascadeType.ALL)
     private List<ProductDetail> productDetails;
+
+    @OneToMany(mappedBy = "productVariant")
+    private List<CartProduct> cartProducts;
+
+    @OneToMany(mappedBy = "productVariant")
+    private List<OrderProduct> orderProducts;
 }

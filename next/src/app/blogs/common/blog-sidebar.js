@@ -1,5 +1,4 @@
 import React from "react";
-import BlogDetail from "../blog-details/page";
 
 const BlogSidebar = () => {
   const popularBlogData = [

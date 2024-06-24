@@ -8,14 +8,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
 public interface OrderService {
-    Page<OrderResponse> getAllOrders(PageRequest pageRequest);
-
-    OrderDetailResponse getOrderById(Long orderId);
+//    Page<OrderResponse> getAllOrders(PageRequest pageRequest);
+//
+//    OrderDetailResponse getOrderById(Long orderId);
 
     @Transactional
-    OrderDetailResponse createOrder(OrderDto order) throws Exception;
+    OrderDetailResponse createOrder(String token, OrderDto order) throws Exception;
 
-    OrderDetailResponse updateOrder(OrderDto order, Long orderId);
-
-    void deleteOrder(Long id);
+//    OrderDetailResponse updateOrder(OrderDto order, Long orderId);
+//
+//    void deleteOrder(Long id);
 }

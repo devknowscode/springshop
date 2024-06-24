@@ -15,14 +15,8 @@ public class OrderProduct {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "product_price")
-    private Double productPrice;
-
-    @Column(name = "product_count")
-    private int quantity;
-
-    @Column(name = "total_price")
-    private Double totalPrice;
+    @Column(name = "product_qty")
+    private int productQty;
 
     @ManyToOne
     @JoinColumn(name = "order_id", nullable = false)
@@ -31,4 +25,8 @@ public class OrderProduct {
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
+
+    @ManyToOne
+    @JoinColumn(name = "product_variant_id", nullable = false)
+    private ProductVariant productVariant;
 }

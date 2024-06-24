@@ -59,7 +59,7 @@ const BlogSection = ({ type, sectionClass, title, inner, hrClass }) => {
             <Col md="12">
               <div className={title}>
                 {/* <h4>our collection</h4> */}
-                <h2 className={inner}>blogs</h2>
+                <h2 className={inner}>Các bài viết</h2>
                 {hrClass ? (
                   <hr role="tournament6"></hr>
                 ) : (

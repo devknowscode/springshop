@@ -15,16 +15,13 @@ public class OrderCheckout {
     private Long id;
 
     @Column(name = "total_amount")
-    private Double totalAmount;
+    private int totalAmount;
 
     @Column(name = "fee_ship")
-    private Double shippingFee;
-
-//    @Column(name = "total_discount")
-//    private Double totalDiscount;
+    private int shippingFee;
 
     @Column(name = "total_checkout")
-    private Double totalCheckout;
+    private int totalCheckout;
 
     @OneToOne
     @JoinColumn(name = "order_id", nullable = false)

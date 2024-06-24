@@ -6,12 +6,11 @@ import LeftImagePage from "../product/leftImagePage";
 
 const LeftSidebar = ({ params  }) => {
   const {slug} = params;
-  console.log({slug})
 
   return (
-    <CommonLayout parent="Home" title="Product">
+    <CommonLayout parent="Trang chủ" title="Sản phẩm">
       <LeftImagePage slug={slug} />
-      <ProductSection />
+      {/* <ProductSection /> */}
     </CommonLayout>
   );
 };

@@ -4,13 +4,11 @@ import com.project.shopapp.dtos.UserDetailDto;
 import com.project.shopapp.responses.BaseResponse;
 import com.project.shopapp.responses.UserDetailResponse;
 import com.project.shopapp.services.UserService;
+import com.project.shopapp.utils.AuthUtils;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Objects;
 
 @RestController
 @RequestMapping("/v1/api/users")
@@ -24,7 +22,7 @@ public class UserController {
     public BaseResponse<UserDetailResponse> getUserDetail(@RequestHeader HttpHeaders headers)
             throws Exception {
 
-        final String token = getTokenFromHeaders(headers);
+        final String token = AuthUtils.getTokenInHeaders(headers);
         // Response to user
         var response = new BaseResponse<UserDetailResponse>();
         response.setStatus(HttpStatus.OK.value());
@@ -39,20 +37,11 @@ public class UserController {
             @RequestHeader HttpHeaders headers,
             @RequestBody UserDetailDto userDetailDto
     ) throws Exception {
-        final String token = getTokenFromHeaders(headers);
+        final String token = AuthUtils.getTokenInHeaders(headers);
         var response = new BaseResponse<UserDetailResponse>();
         response.setStatus(HttpStatus.OK.value());
         response.setMessage("User updated successfully!");
         response.setMetadata(service.updateUserDetail(token, userDetailDto));
         return response;
-    }
-
-    private static String getTokenFromHeaders(HttpHeaders headers) throws BadRequestException {
-        final String authHeader = Objects.requireNonNull(headers.get("authorization")).get(0);
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            throw new BadRequestException("Permission denied!");
-        }
-        final String token = authHeader.substring("Bearer ".length());
-        return token;
     }
 }

@@ -20,10 +20,6 @@ const FilterPage = ({ sm, sidebarView, closeSidebar }) => {
                         </span>
                     </div>
                     <Category />
-                    <Brand />
-                    <Color />
-                    <Size />
-                    <Price />
                 </div>
                 <div className="collection-sidebar-banner">
                     <a href={null}><Media src={sideBanner.src} className="img-fluid blur-up lazyload" alt="" /></a>

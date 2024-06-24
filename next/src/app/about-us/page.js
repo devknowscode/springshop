@@ -8,7 +8,7 @@ import aboutus from "/public/assets/images/about/about_us.jpg";
 const AboutUs = () => {
   return (
     <>
-      <CommonLayout parent="home" title="About-us">
+      <CommonLayout parent="Trang chủ" title="Về chúng tôi">
         {/* // <!-- about section start --> */}
         <section className="about-page section-b-space">
           <Container>

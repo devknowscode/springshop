@@ -3,12 +3,10 @@ import Link from "next/link";
 import CartHeader from "../headers/common/cart-header";
 import CartContext from "../../helpers/cart";
 import { Media } from "reactstrap";
-import { CurrencyContext } from "../../helpers/Currency/CurrencyContext";
+import convertCurrencyFormat from "@/utils/currencyFormat";
 
 const CartContainer = ({ icon }) => {
   const context = useContext(CartContext);
-  const currContext = useContext(CurrencyContext);
-  const symbol = currContext.state.symbol;
   const cartList = context.state;
   const total = context.cartTotal;
 
@@ -24,17 +22,16 @@ const CartContainer = ({ icon }) => {
         </Link>
         <ul className="show-div shopping-cart">
           {cartList.map((item, index) => (
-            <CartHeader key={index} item={item} total={total} symbol={symbol} />
+            <CartHeader key={index} item={item} total={total} />
           ))}
           {cartList.length > 0 ? (
             <div>
               <li>
                 <div className="total">
                   <h5>
-                    subtotal :{" "}
+                    tổng :{" "}
                     <span>
-                      {symbol}
-                      {total}
+                      {convertCurrencyFormat(total)}
                     </span>
                   </h5>
                 </div>
@@ -42,17 +39,17 @@ const CartContainer = ({ icon }) => {
               <li>
                 <div className="buttons view-cart">
                   <Link href={`/account/cart`}>
-                    view cart
+                    Xem giỏ hàng
                   </Link>
                   <Link href={`/account/checkout`} className="checkout">
-                    checkout
+                    Thanh toán
                   </Link>
                 </div>
               </li>
             </div>
           ) : (
             <li>
-              <h5>Your cart is currently empty.</h5>
+              <h5>Giỏ hàng của bạn đang trống.</h5>
             </li>
           )}
         </ul>

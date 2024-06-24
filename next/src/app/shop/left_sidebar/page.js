@@ -18,7 +18,7 @@ const LeftSidebar = () => {
         }
     }
     return (
-        <CommonLayout title="collection" parent="home" >
+        <CommonLayout title="Bộ sưu tập" parent="Trang chủ" >
             <section className="section-b-space ratio_asos">
                 <div className="collection-wrapper">
                     <Container>

@@ -11,14 +11,17 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderItemDto {
-    @JsonProperty("product_id")
-    private Long productId;
-
     @JsonProperty("product_name")
     private String productName;
+
+    @JsonProperty("product_variant_name")
+    private String productVariantName;
+
+    @JsonProperty("product_price")
+    private int productPrice;
 
     private int quantity;
 
     @JsonProperty("total_price")
-    private Double totalPrice;
+    private int totalPrice;
 }

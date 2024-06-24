@@ -49,7 +49,7 @@ const Login = () => {
 
 
   return (
-    <CommonLayout parent="home" title="login">
+    <CommonLayout parent="Trang chủ" title="Đăng nhập">
       <section className="login-page section-b-space">
         <Container>
           <Row>

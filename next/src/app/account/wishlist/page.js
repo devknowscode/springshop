@@ -7,7 +7,7 @@ import WishlistPage from '../common/wishlist-page';
 
 const Wishliat = () => {
     return (
-        <CommonLayout parent="home" title="wishlist">
+        <CommonLayout parent="trang chủ" title="danh sách yêu thích">
             <WishlistPage />
         </CommonLayout>
     )

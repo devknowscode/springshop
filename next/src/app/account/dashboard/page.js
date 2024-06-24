@@ -56,7 +56,7 @@ const Dashboard = () => {
   };
 
   return (
-    <CommonLayout parent="home" title="dashboard">
+    <CommonLayout parent="Trang chủ" title="Tài khoản">
       <section className="section-b-space">
         <Container>
           <Row>

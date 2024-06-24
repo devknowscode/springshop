@@ -13,7 +13,7 @@ const Checkout = () => {
     return (
         <>
             {currentUser !== null ?
-                <CommonLayout parent="home" title="checkout">
+                <CommonLayout parent="Trang chủ" title="Thanh toán">
                     <CheckoutPage />
                 </CommonLayout>
                 :

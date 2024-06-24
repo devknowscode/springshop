@@ -120,8 +120,8 @@ const SpecialProducts = ({
             ""
           ) : (
             <div className={title}>
-              <h4>exclusive products</h4>
-              <h2 className={inner}>special products</h2>
+              <h4></h4>
+              <h2 className={inner}>Sản phẩm nổi bật</h2>
               {line ? (
                 <div className="line"></div>
               ) : hrClass ? (
@@ -138,19 +138,19 @@ const SpecialProducts = ({
                 className={activeTab == type ? "active" : ""}
                 onClick={() => setActiveTab(type)}
               >
-                NEW ARRIVAL
+                Xu hướng
               </Tab>
               <Tab
                 className={activeTab == "furniture" ? "active" : ""}
                 onClick={() => setActiveTab("furniture")}
               >
-                FEATURED{" "}
+                Nổi bật
               </Tab>
               <Tab
                 className={activeTab == "furniture" ? "active" : ""}
                 onClick={() => setActiveTab("furniture")}
               >
-                SPECIAL
+                Đặc biệt
               </Tab>
             </TabList>
 

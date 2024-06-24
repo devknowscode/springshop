@@ -17,7 +17,7 @@ public class OrderResponse {
     private Long id;
 
     @JsonProperty("customer_name")
-    private String fullName;
+    private String customerName;
 
     @JsonProperty("order_total")
     private Double orderTotal;

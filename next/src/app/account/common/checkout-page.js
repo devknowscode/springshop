@@ -1,13 +1,15 @@
-
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { Media, Container, Form, Row, Col } from "reactstrap";
 import CartContext from "../../../helpers/cart";
 import paypal from "/public/assets/images/paypal.png";
 // import { PayPalButton } from "react-paypal-button-v2";
-import { PayPalScriptProvider, BraintreePayPalButtons, PayPalButtons } from "@paypal/react-paypal-js";
+import {
+  PayPalScriptProvider, PayPalButtons
+} from "@paypal/react-paypal-js";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import convertCurrencyFormat from "@/utils/currencyFormat";
+import orderApiRequest from "@/utils/orderApiRequest";
 
 const CheckoutPage = () => {
   const cartContext = useContext(CartContext);
@@ -16,7 +18,8 @@ const CheckoutPage = () => {
   const clearCart = cartContext.clearCart;
   const [obj, setObj] = useState({});
   const [payment, setPayment] = useState("cod");
-  
+  const token = localStorage.getItem("userToken");
+
   const {
     register,
     handleSubmit,
@@ -28,11 +31,28 @@ const CheckoutPage = () => {
     setPayment(value);
   };
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     if (data !== "") {
       clearCart();
+      const body = {
+        ...data,
+        ...obj,
+        order_items: cartItems.map(({product_id, product_sku, product_qty, total}) => (
+          {
+            product_id,
+            product_sku,
+            product_qty,
+            product_total: total
+          }
+        )),
+        payment_method: payment,
+      };
+
+      const response = await orderApiRequest.createOrder(token, body);
+      if (!response) {
+        return;
+      }
       router.push("/order-success");
-      
     } else {
       errors.showMessages();
     }
@@ -57,38 +77,33 @@ const CheckoutPage = () => {
                   <div className="row check-out">
                     <div className="form-group col-md-12 col-sm-12 col-xs-12">
                       <div className="field-label">Họ Và Tên</div>
-                      <input type="text" className={`${errors.fullname ? "error_border" : ""}`} name="first_name" {...register("fullname", { required: true })} />
-                      <span className="error-message">{errors.fullname && "First name is required"}</span>
-                    </div>
-                    <div className="form-group col-md-6 col-sm-6 col-xs-12">
-                      <div className="field-label">Điện thoại</div>
-                      <input type="text" name="phone" className={`${errors.phone ? "error_border" : ""}`} {...register("phone", { pattern: /\d+/ })} />
-                      <span className="error-message">{errors.phone && "Please enter number for phone."}</span>
-                    </div>
-                    <div className="form-group col-md-6 col-sm-6 col-xs-12">
-                      <div className="field-label">Địa chỉ Email</div>
                       <input
-                        //className="form-control"
-                        className={`${errors.email ? "error_border" : ""}`}
                         type="text"
-                        name="email"
-                        {...register("email", {
-                          required: true,
-                          pattern: /^\S+@\S+$/i,
-                        })}
+                        className={`${
+                          errors.customerName ? "error_border" : ""
+                        }`}
+                        name="customer_name"
+                        {...register("customer_name", { required: true })}
                       />
-                      <span className="error-message">{errors.email && "Please enter proper email address ."}</span>
+                      <span className="error-message">
+                        {errors.customerName &&
+                          "Vui lòng nhập tên người mua hàng"}
+                      </span>
                     </div>
                     <div className="form-group col-md-12 col-sm-12 col-xs-12">
-                      <div className="field-label">Thành phố</div>
-                      <select name="country" {...register("country", { required: true })}>
-                        <option>Thành phố Hồ Chí Minh</option>
-                        <option>Thành phố Hà Nội</option>
-                        <option>Bình Dương</option>
-                        <option>Hải Phòng</option>
-                        <option>Cần Thơ</option>
-                        <option>Đà Nẵng</option>
-                      </select>
+                      <div className="field-label">Điện thoại</div>
+                      <input
+                        type="text"
+                        name="phone"
+                        className={`${errors.phone ? "error_border" : ""}`}
+                        {...register("phone", {
+                          required: true,
+                          pattern: /\d+/,
+                        })}
+                      />
+                      <span className="error-message">
+                        {errors.phone && "Vui lòng nhập số điện thoại"}
+                      </span>
                     </div>
                     <div className="form-group col-md-12 col-sm-12 col-xs-12">
                       <div className="field-label">Địa chỉ</div>
@@ -97,12 +112,17 @@ const CheckoutPage = () => {
                         className={`${errors.address ? "error_border" : ""}`}
                         type="text"
                         name="address"
-                        {...register("address", { required: true, min: 20, max: 120 })}
-                        placeholder="Street address"
+                        {...register("address", {
+                          required: true,
+                          min: 20,
+                          max: 120,
+                        })}
                       />
-                      <span className="error-message">{errors.address && "Please right your address ."}</span>
+                      <span className="error-message">
+                        {errors.address && "Vui lòng nhập đúng địa chỉ"}
+                      </span>
                     </div>
-                    <div className="form-group col-md-12 col-sm-12 col-xs-12">
+                    {/* <div className="form-group col-md-12 col-sm-12 col-xs-12">
                       <div className="field-label">Mã ưu đãi</div>
                       <input
                         type="text"
@@ -111,6 +131,17 @@ const CheckoutPage = () => {
                         onChange={setStateFromInput}
                       />
                       <span className="error-message">{errors.city && "select one city"}</span>
+                    </div> */}
+                    <div className="form-group col-md-12 col-sm-12 col-xs-12">
+                      <div className="field-label">Ghi chú</div>
+                      <textarea
+                        type="text"
+                        className="note-area"
+                        name="note"
+                        rows="4"
+                        cols="50"
+                        onChange={setStateFromInput}
+                      />
                     </div>
                   </div>
                 </Col>
@@ -126,10 +157,8 @@ const CheckoutPage = () => {
                         <ul className="qty">
                           {cartItems.map((item, index) => (
                             <li key={index}>
-                              {item.title} × {item.qty}{" "}
-                              <span>
-                                {convertCurrencyFormat(item.total)}
-                              </span>
+                              {item.product_name} × {item.product_qty}{" "}
+                              <span>{convertCurrencyFormat(item.total)}</span>
                             </li>
                           ))}
                         </ul>
@@ -144,15 +173,21 @@ const CheckoutPage = () => {
                             Phí ship
                             <div className="shipping">
                               <div className="shopping-option">
-                                <input type="checkbox" name="free-shipping" id="free-shipping" />
-                                <label htmlFor="free-shipping">Miễn phí giao hàng</label>
+                                <input
+                                  type="checkbox"
+                                  name="free-shipping"
+                                  id="free-shipping"
+                                />
+                                <label htmlFor="free-shipping">
+                                  Miễn phí giao hàng
+                                </label>
                               </div>
                             </div>
                           </li>
                         </ul>
                         <ul className="total">
                           <li>
-                           Tổng đơn hàng{" "}
+                            Tổng đơn hàng{" "}
                             <span className="count">
                               {convertCurrencyFormat(cartTotal)}
                             </span>
@@ -165,13 +200,24 @@ const CheckoutPage = () => {
                             <ul>
                               <li>
                                 <div className="radio-option stripe">
-                                  <input type="radio" name="payment-group" id="payment-2" defaultChecked={true} onClick={() => checkhandle("cod")} />
+                                  <input
+                                    type="radio"
+                                    name="payment-group"
+                                    id="payment-2"
+                                    defaultChecked={true}
+                                    onClick={() => checkhandle("cod")}
+                                  />
                                   <label htmlFor="payment-2">COD</label>
                                 </div>
                               </li>
                               <li>
                                 <div className="radio-option paypal">
-                                  <input type="radio" name="payment-group" id="payment-1" onClick={() => checkhandle("paypal")} />
+                                  <input
+                                    type="radio"
+                                    name="payment-group"
+                                    id="payment-1"
+                                    onClick={() => checkhandle("paypal")}
+                                  />
                                   <label htmlFor="payment-1">
                                     PayPal
                                     <span className="image">
@@ -190,7 +236,9 @@ const CheckoutPage = () => {
                                 Đặt hàng
                               </button>
                             ) : (
-                              <PayPalScriptProvider options={{ clientId: "test" }}>
+                              <PayPalScriptProvider
+                                options={{ clientId: "test" }}
+                              >
                                 <PayPalButtons
                                   createOrder={(data, actions) => {
                                     return actions.order.create({
@@ -204,10 +252,15 @@ const CheckoutPage = () => {
                                     });
                                   }}
                                   onApprove={(data, actions) => {
-                                    return actions.order.capture().then((details) => {
-                                      const name = details.payer.name.given_name;
-                                      alert(`Transaction completed by ${name}`);
-                                    });
+                                    return actions.order
+                                      .capture()
+                                      .then((details) => {
+                                        const name =
+                                          details.payer.name.given_name;
+                                        alert(
+                                          `Transaction completed by ${name}`
+                                        );
+                                      });
                                   }}
                                 />
                               </PayPalScriptProvider>

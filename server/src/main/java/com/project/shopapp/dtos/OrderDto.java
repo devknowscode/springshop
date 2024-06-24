@@ -15,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 public class OrderDto {
     @JsonProperty("customer_name")
-    private String fullName;
+    private String customerName;
 
     private String phone;
 
@@ -28,10 +28,4 @@ public class OrderDto {
 
     @JsonProperty("payment_method")
     private String paymentMethod;
-
-    @JsonProperty("tracking_number")
-    private String trackingNumber;
-
-    @JsonProperty("user_id")
-    private Long userId;
 }

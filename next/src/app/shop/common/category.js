@@ -29,7 +29,7 @@ const Category = () => {
     <>
       <div className="collection-collapse-block open">
         <h3 className="collapse-block-title" onClick={toggleCategory}>
-          Category
+          Danh mục sản phẩm
         </h3>
         <Collapse isOpen={isCategoryOpen}>
           <div className="collection-collapse-block-content">

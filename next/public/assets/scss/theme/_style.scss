@@ -10046,6 +10046,10 @@ footer {
     }
   }
   .product-description {
+    .full-stock-message {
+      margin-top: 1rem;
+      color: #ff4c3b;
+    }
     h6 {
       span {
         float: right;
@@ -10560,6 +10564,12 @@ footer {
           color: $dark-font;
           font-weight: 600;
         }
+      }
+      .note-area {
+        width: 100%;
+        height: 260px;
+        padding: 10px 20px;
+        font-size: 14px;
       }
       label {
         color: $grey;
